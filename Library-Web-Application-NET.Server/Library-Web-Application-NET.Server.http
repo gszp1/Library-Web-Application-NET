@@ -1,0 +1,6 @@
+@Library_Web_Application_NET.Server_HostAddress = http://localhost:5123
+
+GET {{Library_Web_Application_NET.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
