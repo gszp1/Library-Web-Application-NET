@@ -14,8 +14,5 @@ namespace Library_Web_Application_NET.Server.src.data.context
         {
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
         }
-
-        
-
     }
 }
