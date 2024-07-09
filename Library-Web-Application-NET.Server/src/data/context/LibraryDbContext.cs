@@ -17,6 +17,7 @@ namespace Library_Web_Application_NET.Server.src.data.context
             modelBuilder.ApplyConfiguration(new ResourceConfiguration());
             modelBuilder.ApplyConfiguration(new ResourceInstanceConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new ReservationConfiguration());
         }
     }
 }

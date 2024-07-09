@@ -63,6 +63,7 @@ namespace Library_Web_Application_NET.Server.src.data.config
             builder.Property(u => u.Status)
                 .HasColumnName("status")
                 .HasColumnType("nvarchar")
+                .HasMaxLength(30)
                 .HasConversion<string>()
                 .IsRequired(true)
                 .HasDefaultValue(UserStatus.Active);
@@ -70,6 +71,7 @@ namespace Library_Web_Application_NET.Server.src.data.config
             builder.Property(u => u.Role)
                 .HasColumnName("role")
                 .HasColumnType("nvarchar")
+                .HasMaxLength(30)
                 .HasConversion<string>()
                 .IsRequired(true)
                 .HasDefaultValue(Role.User);
