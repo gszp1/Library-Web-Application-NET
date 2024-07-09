@@ -6,6 +6,8 @@
 
         public string Name { get; set; }
 
-        public string address { get; set; }
+        public string Address { get; set; }
+
+        public List<Resource> Resources { get; set; }
     }
 }

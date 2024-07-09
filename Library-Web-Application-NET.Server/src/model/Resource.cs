@@ -11,5 +11,7 @@
         public string Descripiton { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public Publisher Publisher{ get; set; }
     }
 }

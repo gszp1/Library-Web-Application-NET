@@ -12,6 +12,7 @@ namespace Library_Web_Application_NET.Server.src.data.context
         // Configuration
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Entity configuration
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new PublisherConifguration());
             modelBuilder.ApplyConfiguration(new ResourceConfiguration());
