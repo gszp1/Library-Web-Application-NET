@@ -30,8 +30,9 @@ namespace Library_Web_Application_NET.Server.src.data.config
                 .HasColumnName("status")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(30)
+                .HasConversion<string>()
                 .IsRequired(true)
-                .HasDefaultValue(InstanceStatus.Active.GetDisplayName());
+                .HasDefaultValue(InstanceStatus.Active);
         }
     }
 }
