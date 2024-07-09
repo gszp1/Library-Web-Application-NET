@@ -11,6 +11,7 @@ namespace Library_Web_Application_NET.Server.src.data.config
             builder.ToTable("authors");
             
             builder.HasKey(a => a.AuthorId);
+
             builder.Property(a => a.AuthorId)
                 .HasColumnName("author_id")
                 .ValueGeneratedOnAdd();
@@ -28,7 +29,7 @@ namespace Library_Web_Application_NET.Server.src.data.config
                 .IsRequired(true);
 
             builder.HasIndex(a => a.Email)
-                .IsUnique();
+                .IsUnique(true);
 
             builder.Property(a => a.Email)
                 .HasColumnName("email")

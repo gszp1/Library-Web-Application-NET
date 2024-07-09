@@ -13,6 +13,7 @@ namespace Library_Web_Application_NET.Server.src.data.context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
+            modelBuilder.ApplyConfiguration(new PublisherConifguration());
         }
     }
 }
