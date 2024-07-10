@@ -49,6 +49,20 @@ namespace Library_Web_Application_NET.Server.src.data.context
                 .WithOne(r => r.Publisher)
                 .HasForeignKey(r => r.PublisherId)
                 .IsRequired(true);
+
+            // Author(One) <---> AuthorResources(Many)
+            modelBuilder.Entity<Author>()
+                .HasMany(a => a.AuthorResources)
+                .WithOne(ar => ar.Author)
+                .HasForeignKey(ar => ar.AuthorId)
+                .IsRequired(true);
+
+            // Resource(One) <---> AuthorResources(Many)
+            modelBuilder.Entity<Resource>()
+                .HasMany(r => r.AuthorResources)
+                .WithOne(ar => ar.Resource)
+                .HasForeignKey(ar => ar.ResourceId)
+                .IsRequired(true);
         }
     }
 }
