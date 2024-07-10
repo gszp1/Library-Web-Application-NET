@@ -12,6 +12,10 @@
 
         public string ImageUrl { get; set; }
 
+        public List<ResourceInstance> Instances { get; set; }
+
+        public int PublisherId { get; set; }
+
         public Publisher Publisher{ get; set; }
     }
 }

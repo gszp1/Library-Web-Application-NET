@@ -13,5 +13,13 @@ namespace Library_Web_Application_NET.Server.src.model
         public ReservationStatus Status { get; set; }
 
         public int ExtensionCount { get; set; }
+
+        public int UserId { get; set; }
+
+        public User User { get; set; }
+
+        public int InstanceId { get; set; }
+
+        public ResourceInstance Instance { get; set; }
     }
 }
