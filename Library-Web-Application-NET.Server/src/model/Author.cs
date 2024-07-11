@@ -10,6 +10,6 @@
 
         public string Email { get; set; }
 
-        public List<AuthorResource> AuthorResources { get; set; }
+        public List<Resource> Resources { get; set; } = [];
     }
 }

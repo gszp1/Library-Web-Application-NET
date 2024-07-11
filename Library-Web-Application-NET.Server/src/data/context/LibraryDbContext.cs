@@ -50,19 +50,28 @@ namespace Library_Web_Application_NET.Server.src.data.context
                 .HasForeignKey(r => r.PublisherId)
                 .IsRequired(true);
 
-            // Author(One) <---> AuthorResources(Many)
-            modelBuilder.Entity<Author>()
-                .HasMany(a => a.AuthorResources)
-                .WithOne(ar => ar.Author)
-                .HasForeignKey(ar => ar.AuthorId)
-                .IsRequired(true);
+            //// Author(One) <---> AuthorResources(Many)
+            //modelBuilder.Entity<Author>()
+            //    .HasMany(a => a.AuthorResources)
+            //    .WithOne(ar => ar.Author)
+            //    .HasForeignKey(ar => ar.AuthorId)
+            //    .IsRequired(true);
 
-            // Resource(One) <---> AuthorResources(Many)
+            //// Resource(One) <---> AuthorResources(Many)
+            //modelBuilder.Entity<Resource>()
+            //    .HasMany(r => r.AuthorResources)
+            //    .WithOne(ar => ar.Resource)
+            //    .HasForeignKey(ar => ar.ResourceId)
+            //    .IsRequired(true);
+
+            // Authors(Many) <---> Resources(Many)
             modelBuilder.Entity<Resource>()
-                .HasMany(r => r.AuthorResources)
-                .WithOne(ar => ar.Resource)
-                .HasForeignKey(ar => ar.ResourceId)
-                .IsRequired(true);
+                .HasMany(r => r.Authors)
+                .WithMany(a => a.Resources)
+                .UsingEntity<AuthorResource>(
+                    a => a.HasOne<Author>().WithMany().HasForeignKey(a => a.AuthorId),
+                    r => r.HasOne<Resource>().WithMany().HasForeignKey(r => r.ResourceId)
+                );
         }
     }
 }
