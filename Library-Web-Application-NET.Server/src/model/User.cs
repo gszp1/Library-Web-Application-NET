@@ -24,6 +24,6 @@ namespace Library_Web_Application_NET.Server.src.model
 
         public Role Role { get; set; }
 
-        public List<Reservation> Reservations { get; set; }
+        public List<Reservation> Reservations { get; set; } = [];
     }
 }
