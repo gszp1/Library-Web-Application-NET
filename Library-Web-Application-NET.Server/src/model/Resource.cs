@@ -8,9 +8,9 @@
 
         public string Identifier { get; set; }
 
-        public string Descripiton { get; set; }
+        public string? Descripiton { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
         public List<ResourceInstance> Instances { get; set; } = [];
 
