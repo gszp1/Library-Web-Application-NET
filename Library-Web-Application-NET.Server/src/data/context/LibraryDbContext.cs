@@ -9,6 +9,18 @@ namespace Library_Web_Application_NET.Server.src.data.context
         // Tables
         public DbSet<Author> Authors { get; set; }
 
+        public DbSet<AuthorResource> AuthorResources { get; set; }
+
+        public DbSet<Publisher> Publishers { get; set; }
+
+        public DbSet<Reservation> Reservations { get; set; }
+
+        public DbSet<Resource> Resources { get; set; }
+
+        public DbSet<ResourceInstance> ResourcesInstances { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
         // Configuration
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
