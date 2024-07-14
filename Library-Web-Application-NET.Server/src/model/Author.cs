@@ -9,5 +9,7 @@
         public string LastName { get; set; }
 
         public string Email { get; set; }
+
+        public List<Resource> Resources { get; set; } = [];
     }
 }
