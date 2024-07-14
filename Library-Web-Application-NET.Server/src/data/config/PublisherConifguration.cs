@@ -26,10 +26,10 @@ namespace Library_Web_Application_NET.Server.src.data.config
                 .HasMaxLength(100)
                 .IsRequired(true);
 
-            builder.HasIndex(p => p.address)
+            builder.HasIndex(p => p.Address)
                 .IsUnique(true);
 
-            builder.Property(p => p.address)
+            builder.Property(p => p.Address)
                 .HasColumnName("address")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(150)

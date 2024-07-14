@@ -8,6 +8,8 @@ namespace Library_Web_Application_NET.Server.src.data.config
     {
         public void Configure(EntityTypeBuilder<AuthorResource> builder)
         {
+            builder.ToTable("authors_resources");
+
             builder.Property(ar => ar.AuthorId)
                 .HasColumnName("FK_author")
                 .HasColumnType("int")

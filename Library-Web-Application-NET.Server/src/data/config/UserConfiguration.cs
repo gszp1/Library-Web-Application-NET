@@ -10,6 +10,8 @@ namespace Library_Web_Application_NET.Server.src.data.config
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.ToTable("users");
+
             builder.HasKey(u => u.UserId);
 
             builder.Property(u => u.UserId)

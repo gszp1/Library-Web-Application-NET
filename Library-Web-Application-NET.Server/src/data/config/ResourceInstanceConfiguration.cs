@@ -10,6 +10,8 @@ namespace Library_Web_Application_NET.Server.src.data.config
     {
         public void Configure(EntityTypeBuilder<ResourceInstance> builder)
         {
+            builder.ToTable("resource_instances");
+
             builder.HasKey(i => i.InstanceId);
 
             builder.Property(i => i.InstanceId)
@@ -33,6 +35,11 @@ namespace Library_Web_Application_NET.Server.src.data.config
                 .HasConversion<string>()
                 .IsRequired(true)
                 .HasDefaultValue(InstanceStatus.Active);
+
+            builder.Property(i => i.ResourceId)
+                .HasColumnName("FK_resource")
+                .HasColumnType("int")
+                .IsRequired(true);
         }
     }
 }

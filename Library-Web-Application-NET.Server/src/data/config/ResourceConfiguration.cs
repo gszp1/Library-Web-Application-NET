@@ -46,6 +46,11 @@ namespace Library_Web_Application_NET.Server.src.data.config
                 .HasColumnType("nvarchar")
                 .HasMaxLength(200)
                 .IsRequired(false);
+
+            builder.Property(r => r.PublisherId)
+                .HasColumnName("FK_publisher")
+                .HasColumnType("int")
+                .IsRequired(true);
         }
     }
 }

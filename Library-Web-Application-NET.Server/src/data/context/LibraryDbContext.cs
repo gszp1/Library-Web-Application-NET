@@ -21,6 +21,11 @@ namespace Library_Web_Application_NET.Server.src.data.context
 
         public DbSet<User> Users { get; set; }
 
+
+        public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options)
+        {
+        }
+
         // Configuration
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

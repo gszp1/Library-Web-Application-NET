@@ -9,6 +9,8 @@ namespace Library_Web_Application_NET.Server.src.data.config
     {
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
+            builder.ToTable("reservations");
+
             builder.HasKey(r => r.ReservationId);
 
             builder.Property(r => r.ReservationId)
@@ -39,6 +41,16 @@ namespace Library_Web_Application_NET.Server.src.data.config
                 .HasColumnType("int")
                 .IsRequired(true)
                 .HasDefaultValue(0);
+
+            builder.Property(r => r.UserId)
+                .HasColumnName("FK_user")
+                .HasColumnType("int")
+                .IsRequired(true);
+
+            builder.Property(r => r.InstanceId)
+                .HasColumnName("FK_instance")
+                .HasColumnType("int")
+                .IsRequired(true);
         }
     }
 }
