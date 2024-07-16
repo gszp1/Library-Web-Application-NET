@@ -26,12 +26,12 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddTransient<DbInitializer>();
 
             builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddTransient<ResourceRepository>();
-            builder.Services.AddTransient<ResourceInstanceRepository>();
-            builder.Services.AddTransient<ReservationRepository>();
-            builder.Services.AddTransient<PublisherRepository>();
-            builder.Services.AddTransient<AuthorResourceRepository>();
-            builder.Services.AddTransient<AuthorRepository>();
+            builder.Services.AddTransient<IResourceRepository, ResourceRepository>();
+            builder.Services.AddTransient<IResourceInstanceRepository, ResourceInstanceRepository>();
+            builder.Services.AddTransient<IReservationRepository, ReservationRepository>();
+            builder.Services.AddTransient<IPublisherRepository, PublisherRepository>();
+            builder.Services.AddTransient<IAuthorResourceRepository, AuthorResourceRepository>();
+            builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
 
             var app = builder.Build();
 
