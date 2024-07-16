@@ -1,9 +1,9 @@
-﻿namespace Library_Web_Application_NET.Server.src.repository
+﻿namespace Library_Web_Application_NET.Server.src.repository.interfaces
 {
-    public interface IGenericRepository<T> where T: class
+    public interface IGenericRepository<T> where T : class
     {
         T GetById(int id);
-        
+
         IEnumerable<T> GetAll();
 
         void Add(T entity);
