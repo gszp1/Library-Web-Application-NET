@@ -32,6 +32,7 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddTransient<IPublisherRepository, PublisherRepository>();
             builder.Services.AddTransient<IAuthorResourceRepository, AuthorResourceRepository>();
             builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
+            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             var app = builder.Build();
 
