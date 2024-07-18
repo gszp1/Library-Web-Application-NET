@@ -1,5 +1,7 @@
 
 using Library_Web_Application_NET.Server.src.data.context;
+using Library_Web_Application_NET.Server.src.repository;
+using Library_Web_Application_NET.Server.src.repository.interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library_Web_Application_NET.Server
@@ -22,6 +24,15 @@ namespace Library_Web_Application_NET.Server
              options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryDb")));
 
             builder.Services.AddTransient<DbInitializer>();
+
+            builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddTransient<IResourceRepository, ResourceRepository>();
+            builder.Services.AddTransient<IResourceInstanceRepository, ResourceInstanceRepository>();
+            builder.Services.AddTransient<IReservationRepository, ReservationRepository>();
+            builder.Services.AddTransient<IPublisherRepository, PublisherRepository>();
+            builder.Services.AddTransient<IAuthorResourceRepository, AuthorResourceRepository>();
+            builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
+            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             var app = builder.Build();
 
