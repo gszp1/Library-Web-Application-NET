@@ -1,6 +1,8 @@
-﻿namespace Library_Web_Application_NET.Server.src.controller
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace Library_Web_Application_NET.Server.src.controller
 {
-    public class ResourceInstanceController
+    public class ResourceInstanceController : ControllerBase
     {
     }
 }

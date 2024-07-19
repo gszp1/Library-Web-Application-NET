@@ -2,7 +2,7 @@
 
 namespace Library_Web_Application_NET.Server.src.controller
 {
-    public class ReservationController : Controller
+    public class ReservationController : ControllerBase
     {
     }
 }
