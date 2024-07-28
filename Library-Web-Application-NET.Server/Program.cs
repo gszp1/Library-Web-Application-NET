@@ -34,6 +34,9 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
             builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+            builder.Services.AddControllers();
+
+
             var app = builder.Build();
 
             using var scope = app.Services.CreateScope();
