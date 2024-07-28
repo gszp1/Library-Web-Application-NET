@@ -25,6 +25,7 @@ namespace Library_Web_Application_NET.Server
 
             builder.Services.AddTransient<DbInitializer>();
 
+            // Repositories
             builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddTransient<IResourceRepository, ResourceRepository>();
             builder.Services.AddTransient<IResourceInstanceRepository, ResourceInstanceRepository>();
@@ -34,6 +35,10 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
             builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+            // Services
+
+
+            // Controllers
             builder.Services.AddControllers();
 
 
