@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Library_Web_Application_NET.Server.src.service;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Library_Web_Application_NET.Server.src.controller
 {
@@ -6,5 +7,11 @@ namespace Library_Web_Application_NET.Server.src.controller
     [ApiController]
     public class AuthorController : ControllerBase
     {
+        private readonly AuthorService authorService;
+
+        public AuthorController(AuthorService authorService)
+        {
+            this.authorService = authorService;
+        }
     }
 }
