@@ -5,6 +5,8 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
     public class UnitOfWork : IUnitOfWork
     {
         private readonly LibraryDbContext context;
+
+        public LibraryDbContext Context { get { return context; } }
         
         public IAuthorRepository Authors { get; private set; }
 
