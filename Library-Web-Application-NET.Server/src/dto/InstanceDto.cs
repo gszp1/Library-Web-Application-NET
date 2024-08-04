@@ -2,6 +2,10 @@
 {
     public class InstanceDto
     {
-        public 
+        public int Id { get; set; }
+
+        public int ResourceId { get; set; }
+
+        public bool IsReserved { get; set; }
     }
 }
