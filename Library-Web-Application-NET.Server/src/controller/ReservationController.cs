@@ -1,4 +1,5 @@
-﻿using Library_Web_Application_NET.Server.src.service;
+﻿using Library_Web_Application_NET.Server.src.dto;
+using Library_Web_Application_NET.Server.src.service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library_Web_Application_NET.Server.src.controller
@@ -13,5 +14,13 @@ namespace Library_Web_Application_NET.Server.src.controller
         {
             this.reservationService = reservationService;
         }
+
+        [HttpGet("all")]
+        public ActionResult<List<AdminReservationDto>> GetAllReservations()
+        {
+
+        }
+
+        public ActionResult<string> CreateReservation([FromBody] )
     }
 }
