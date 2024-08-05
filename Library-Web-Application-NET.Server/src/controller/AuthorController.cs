@@ -1,4 +1,5 @@
-﻿using Library_Web_Application_NET.Server.src.service;
+﻿using Library_Web_Application_NET.Server.src.dto;
+using Library_Web_Application_NET.Server.src.service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library_Web_Application_NET.Server.src.controller
@@ -12,6 +13,24 @@ namespace Library_Web_Application_NET.Server.src.controller
         public AuthorController(AuthorService authorService)
         {
             this.authorService = authorService;
+        }
+
+        [HttpPost("create")]
+        public ActionResult<string> CreateAuthor([FromBody] AdminAuthorDto dto)
+        {
+
+        }
+
+        [HttpGet("all")]
+        public ActionResult<List<FullAuthorDto>> GetAllAuthors()
+        {
+
+        }
+
+        [HttpPut("update")]
+        public ActionResult<string> UpdateAuthor([FromBody] FullAuthorDto dto)
+        {
+
         }
     }
 }
