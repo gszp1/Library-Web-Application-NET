@@ -1,5 +1,6 @@
 ﻿using Library_Web_Application_NET.Server.src.data.context;
 using Library_Web_Application_NET.Server.src.repository.interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library_Web_Application_NET.Server.src.repository
 {
@@ -12,24 +13,24 @@ namespace Library_Web_Application_NET.Server.src.repository
             this.context = context;
         }
 
-        public void Add(T entity)
+        public async Task AddAsync(T entity)
         {
-            context.Set<T>().Add(entity);
+            await context.Set<T>().AddAsync(entity);
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public async Task AddRangeAsync(IEnumerable<T> entities)
         {
-            context.Set<T>().AddRange(entities);
+            await context.Set<T>().AddRangeAsync(entities);
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return context.Set<T>().ToList();
+            return await context.Set<T>().ToListAsync();
         }
 
-        public T GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            return context.Set<T>().Find(id);
+            return await context.Set<T>().FindAsync(id);
         }
 
         public void Remove(T entity)
