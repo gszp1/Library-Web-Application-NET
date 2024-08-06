@@ -28,24 +28,24 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddTransient<DbInitializer>();
 
             // Repositories
-            builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddTransient<IResourceRepository, ResourceRepository>();
-            builder.Services.AddTransient<IResourceInstanceRepository, ResourceInstanceRepository>();
-            builder.Services.AddTransient<IReservationRepository, ReservationRepository>();
-            builder.Services.AddTransient<IPublisherRepository, PublisherRepository>();
-            builder.Services.AddTransient<IAuthorResourceRepository, AuthorResourceRepository>();
-            builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
-            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<IResourceRepository, ResourceRepository>();
+            builder.Services.AddScoped<IResourceInstanceRepository, ResourceInstanceRepository>();
+            builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+            builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
+            builder.Services.AddScoped<IAuthorResourceRepository, AuthorResourceRepository>();
+            builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Services
-            builder.Services.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
-            builder.Services.AddTransient<IAuthorResourceService, AuthorResourceService>();
-            builder.Services.AddTransient<IAuthorService, AuthorService>();
-            builder.Services.AddTransient<IPublisherService, PublisherService>();
-            builder.Services.AddTransient<IReservationService, ReservationService>();
-            builder.Services.AddTransient<IResourceInstanceService, ResourceInstanceService>();
-            builder.Services.AddTransient<IResourceService, ResourceService>();
-            builder.Services.AddTransient<IUserService, UserService>();
+            builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+            builder.Services.AddScoped<IAuthorResourceService, AuthorResourceService>();
+            builder.Services.AddScoped<IAuthorService, AuthorService>();
+            builder.Services.AddScoped<IPublisherService, PublisherService>();
+            builder.Services.AddScoped<IReservationService, ReservationService>();
+            builder.Services.AddScoped<IResourceInstanceService, ResourceInstanceService>();
+            builder.Services.AddScoped<IResourceService, ResourceService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             // Contollers
             builder.Services.AddControllers();
