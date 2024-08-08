@@ -4,6 +4,6 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
 {
     public interface IAuthorResourceRepository : IGenericRepository<AuthorResource>
     {
-        Task<>
+        Task<AuthorResource> FindByAuthorAndResource(Author author, Resource resource);
     }
 }
