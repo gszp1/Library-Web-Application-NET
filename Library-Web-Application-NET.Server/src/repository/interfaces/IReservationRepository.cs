@@ -5,24 +5,24 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
 {
     public interface IReservationRepository : IGenericRepository<Reservation>
     {
-        Task<int> CountResourceReservationsWithStatus
+        Task<int> CountResourceReservationsWithStatusAsync
         (
             int resourceId,
             string userEmail,
             List<ReservationStatus> statuses
         );
 
-        Task<List<Reservation>> FindAllByReservationStatusWithInstances
+        Task<List<Reservation>> FindAllByReservationStatusWithInstancesAsync
         (
             List<ReservationStatus> statuses
         );
 
-        Task<List<Reservation>> FindAllWithData(string sortOrder);
+        Task<List<Reservation>> FindAllWithDataAsync(string sortOrder);
 
-        Task<long> CountReservationWithStatus(ReservationStatus status);
+        Task<long> CountReservationWithStatusAsync(ReservationStatus status);
 
-        Task<long> CountReservationsByStartMonth(int month);
+        Task<long> CountReservationsByStartMonthAsync(int month);
 
-        Task<List<object[]>> GetReservationsWithCounts();
+        Task<List<object[]>> GetReservationsWithCountsAsync();
     }
 }
