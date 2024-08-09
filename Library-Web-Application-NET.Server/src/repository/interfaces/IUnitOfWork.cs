@@ -14,6 +14,8 @@
 
         IResourceRepository Resources { get; }
 
+        IUserRepository Users { get; }
+
         int Complete();
     }
 }
