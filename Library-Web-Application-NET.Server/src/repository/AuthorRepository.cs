@@ -13,7 +13,7 @@ namespace Library_Web_Application_NET.Server.src.repository
 
         public async Task<Author?> FindByEmailAsync(string email)
         {
-            return await context.Authors.FirstOrDefaultAsync(a => a.Email == email);
+            return await context.Authors.FirstOrDefaultAsync(a => a.Email.Equals(email));
         }
 
         public async Task<Author?> FindByAuthorIdAsync(int authorId)
