@@ -18,7 +18,6 @@ namespace Library_Web_Application_NET.Server
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

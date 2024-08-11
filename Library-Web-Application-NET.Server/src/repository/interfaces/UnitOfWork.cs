@@ -34,9 +34,9 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
             this.Users = new UserRepository(context);
         }
 
-        public int Complete()
+        public async Task<int> CompleteAsync()
         {
-            return context.SaveChanges();
+            return await context.SaveChangesAsync();
         }
 
         public void Dispose()
