@@ -8,6 +8,8 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
 
         Task<List<User>> FindByEmailKeywordAsync(string keyword);
 
+        Task<User> FindByUserIdAsync(int userId);
+
         Task<long> CountUsersAsync();
 
         Task<long> CountByRegistrationDateMonthAsync(int month);
