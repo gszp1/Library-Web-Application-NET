@@ -4,10 +4,12 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
 {
     public interface IResourceInstanceRepository : IGenericRepository<ResourceInstance>
     {
-        Task<List<ResourceInstance>> FindByResourceIdAndIsReservedFalseAsync(int resourceId);
+        Task<ResourceInstance> FindByResourceIdAndIsReservedFalseAsync(int resourceId);
 
-        Task<List<ResourceInstance>> FindByResourceIdAsync(int resourceId, string sort);
+        Task<ResourceInstance> FindByResourceIdAsync(int resourceId, string sortOrder);
 
-        Task<ResourceInstance> FindByResourceIdAsync(int resourceId);
+        Task<List<ResourceInstance>> FindByResourceIdWithData(int resourceId, string sortOrder);
+
+        Task<ResourceInstance> FindByIdWithData(int id);
     }
 }
