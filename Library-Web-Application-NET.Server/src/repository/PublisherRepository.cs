@@ -11,14 +11,14 @@ namespace Library_Web_Application_NET.Server.src.repository
         {
         }
 
-        public Task<Publisher?> FindByNameAsync(string name)
+        public async Task<Publisher?> FindByNameAsync(string name)
         {
-            return context.Publishers.FirstOrDefaultAsync(p => p.Name.Equals(name));
+            return await context.Publishers.FirstOrDefaultAsync(p => p.Name.Equals(name));
         }
 
-        public Task<Publisher?> FindByAddressAsync(string address)
+        public async Task<Publisher?> FindByAddressAsync(string address)
         {
-            return context.Publishers.FirstOrDefaultAsync(p => p.Address.Equals(address));
+            return await context.Publishers.FirstOrDefaultAsync(p => p.Address.Equals(address));
         }
 
     }
