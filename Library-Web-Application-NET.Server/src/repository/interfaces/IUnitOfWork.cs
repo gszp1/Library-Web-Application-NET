@@ -14,6 +14,8 @@
 
         IResourceRepository Resources { get; }
 
-        int Complete();
+        IUserRepository Users { get; }
+
+        Task<int> CompleteAsync();
     }
 }

@@ -18,7 +18,6 @@ namespace Library_Web_Application_NET.Server
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -35,6 +34,7 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
             builder.Services.AddScoped<IAuthorResourceRepository, AuthorResourceRepository>();
             builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Services

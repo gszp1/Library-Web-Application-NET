@@ -20,6 +20,8 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
 
         public IResourceRepository Resources { get; private set; }
 
+        public IUserRepository Users { get; private set; }
+
         public UnitOfWork(LibraryDbContext context)
         {
             this.context = context;
@@ -29,11 +31,12 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
             this.Reservations = new ReservationRepository(context);
             this.ResourceInstances = new ResourceInstanceRepository(context);
             this.Resources = new ResourceRepository(context);
+            this.Users = new UserRepository(context);
         }
 
-        public int Complete()
+        public async Task<int> CompleteAsync()
         {
-            return context.SaveChanges();
+            return await context.SaveChangesAsync();
         }
 
         public void Dispose()
