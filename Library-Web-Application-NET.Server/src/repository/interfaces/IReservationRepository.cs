@@ -5,7 +5,7 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
 {
     public interface IReservationRepository : IGenericRepository<Reservation>
     {
-        Task<int> CountResourceReservationsWithStatusAsync(
+        Task<int> CountUserResourceReservationsWithStatusAsync(
             int resourceId,
             string userEmail,
             List<ReservationStatus> statuses
@@ -15,7 +15,7 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
             List<ReservationStatus> statuses
         );
 
-        Task<Reservation> FindByReservationIdWithInstanceAsync(int reservationId);
+        Task<Reservation?> FindByReservationIdWithInstanceAsync(int reservationId);
 
         Task<List<Reservation>> FindAllByUserEmailWithInstancesAsync(string userEmail);
 
@@ -24,7 +24,7 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
             ReservationStatus status
         );
 
-        Task<List<Reservation>> FindAllWithDataAsync(string sortOrder);
+        Task<List<Reservation>> FindAllWithDataAsync(string sortBy, bool descending);
 
         Task<long> CountReservationsWithStatusAsync(ReservationStatus status);
 
