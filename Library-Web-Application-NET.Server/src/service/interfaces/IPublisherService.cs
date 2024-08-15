@@ -5,11 +5,11 @@ namespace Library_Web_Application_NET.Server.src.service.interfaces
 {
     public interface IPublisherService : IGenericService<Publisher>
     {
-        Task CreatePublisher(PublisherDto dto);
+        Task CreatePublisherAsync(PublisherDto dto);
 
-        Task<List<AdminPublisherDto>> GetAllPublishers();
+        Task<List<AdminPublisherDto>> GetAllPublishersAsync();
 
-        Task UpdatePublisher(AdminPublisherDto dto);
+        Task UpdatePublisherAsync(AdminPublisherDto dto);
     }
 
 }
