@@ -1,6 +1,6 @@
 ﻿namespace Library_Web_Application_NET.Server.src.util
 {
-    public class PageResult<T>
+    public class PagedResult<T>
     {
         public List<T> Items { get; set; }
         

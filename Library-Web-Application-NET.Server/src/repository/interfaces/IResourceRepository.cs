@@ -8,13 +8,13 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
     {
         Task<List<Resource>> FindAllWithAuthorsAsync();
 
-        Task<PageResult<Resource>> FindAllWithAuthorsPageableAsync(Pageable pageable);
+        Task<PagedResult<Resource>> FindAllWithAuthorsPageableAsync(Pageable pageable);
 
         Task<Resource?> FindByResourceIdAsync(int resourceId);
 
         Task<List<Resource>> FindAllByTitleKeywordAsync(string keyword);
 
-        Task<PageResult<Resource>> FindAllByTitleKeywordPageableAsync(string keyword, Pageable pageable);
+        Task<PagedResult<Resource>> FindAllByTitleKeywordPageableAsync(string keyword, Pageable pageable);
 
         Task<Resource?> FindByTitleAsync(string title);
 
