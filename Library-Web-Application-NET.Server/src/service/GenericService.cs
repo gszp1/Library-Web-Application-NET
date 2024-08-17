@@ -6,5 +6,10 @@ namespace Library_Web_Application_NET.Server.src.service
     public class GenericService<T> : IGenericService<T> where T : class
     {
         protected readonly UnitOfWork unitOfWork;
+
+        public GenericService(UnitOfWork unitOfWork)
+        {
+            this.unitOfWork = unitOfWork;
+        }
     }
 }

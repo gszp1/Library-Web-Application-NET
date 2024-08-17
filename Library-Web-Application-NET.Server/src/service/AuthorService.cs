@@ -1,6 +1,7 @@
 ﻿using Library_Web_Application_NET.Server.src.dto;
 using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.model;
+using Library_Web_Application_NET.Server.src.repository.interfaces;
 using Library_Web_Application_NET.Server.src.service.interfaces;
 
 namespace Library_Web_Application_NET.Server.src.service
@@ -11,8 +12,9 @@ namespace Library_Web_Application_NET.Server.src.service
         {
             if (dto.FirstName == null || dto.LastName == null || dto.Email == null)
             {
-                throw new InvalidDataException("");
+                throw new InvalidRequestDataException("Not all needed data provided.");
             }
+
         }
 
         Task<List<FullAuthorDto>> GetAllAuthorsAsync();
