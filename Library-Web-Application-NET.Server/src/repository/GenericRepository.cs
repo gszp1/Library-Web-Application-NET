@@ -52,7 +52,7 @@ namespace Library_Web_Application_NET.Server.src.repository
             context.Set<T>().Update(entity);
         }
 
-        public async Task<IEnumerable<T>> FindAllSortedAsync(Sort sort)
+        public async Task<List<T>> FindAllSortedAsync(Sort sort)
         {
             var query = context
                 .Set<T>()

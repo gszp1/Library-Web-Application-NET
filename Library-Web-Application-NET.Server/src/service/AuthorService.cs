@@ -84,7 +84,7 @@ namespace Library_Web_Application_NET.Server.src.service
             author.Email = dto.Email;
             author.FirstName = dto.FirstName;
             author.LastName = dto.LastName;
-            await unitOfWork.Authors.UpdateAsync(author);
+            unitOfWork.Authors.Update(author);
             if (await unitOfWork.CompleteAsync() == 0)
             {
                 throw new OperationFailedException("Failed to persist changes to author in database.");

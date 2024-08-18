@@ -18,6 +18,6 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
 
         void RemoveRange(IEnumerable<T> entities);
 
-        Task<IEnumerable<T>> FindAllSortedAsync(Sort sort);
+        Task<List<T>> FindAllSortedAsync(Sort sort);
     }
 }
