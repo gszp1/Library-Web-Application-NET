@@ -13,22 +13,22 @@ namespace Library_Web_Application_NET.Server.src.repository
             this.context = context;
         }
 
-        public async Task AddAsync(T entity)
+        public async Task SaveAsync(T entity)
         {
             await context.Set<T>().AddAsync(entity);
         }
 
-        public async Task AddRangeAsync(IEnumerable<T> entities)
+        public async Task SaveAllAsync(IEnumerable<T> entities)
         {
             await context.Set<T>().AddRangeAsync(entities);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> FindAllAsync()
         {
             return await context.Set<T>().ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T?> FindByIdAsync(int id)
         {
             return await context.Set<T>().FindAsync(id);
         }
