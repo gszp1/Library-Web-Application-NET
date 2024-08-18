@@ -1,4 +1,6 @@
-﻿namespace Library_Web_Application_NET.Server.src.repository.interfaces
+﻿using Library_Web_Application_NET.Server.src.util;
+
+namespace Library_Web_Application_NET.Server.src.repository.interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
@@ -10,10 +12,12 @@
 
         Task SaveAllAsync(IEnumerable<T> entities);
 
-        Task UpdateAsync(T entity);
+        void Update(T entity);
 
         void Remove(T entity);
 
         void RemoveRange(IEnumerable<T> entities);
+
+        Task<IEnumerable<T>> FindAllSortedAsync(Sort sort);
     }
 }
