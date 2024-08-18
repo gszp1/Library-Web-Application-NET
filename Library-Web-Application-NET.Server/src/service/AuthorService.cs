@@ -8,6 +8,9 @@ namespace Library_Web_Application_NET.Server.src.service
 {
     public class AuthorService : GenericService<Author>, IAuthorService
     {
+
+        public AuthorService(IUnitOfWork unitOfWork) : base(unitOfWork) {}
+
         public async Task CreateAuthorAsync(AdminAuthorDto dto)
         {
             if (dto.FirstName == null || dto.LastName == null || dto.Email == null)
