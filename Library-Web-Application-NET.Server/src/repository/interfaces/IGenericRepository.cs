@@ -10,6 +10,8 @@
 
         Task SaveAllAsync(IEnumerable<T> entities);
 
+        Task UpdateAsync(T entity);
+
         void Remove(T entity);
 
         void RemoveRange(IEnumerable<T> entities);

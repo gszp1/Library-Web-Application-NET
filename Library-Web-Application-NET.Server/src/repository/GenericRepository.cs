@@ -42,5 +42,10 @@ namespace Library_Web_Application_NET.Server.src.repository
         {
             context.Set<T>().RemoveRange(entities);
         }
+
+        public void UpdateAsync(T entity)
+        {
+            context.Set<T>().Update(entity);
+        }
     }
 }
