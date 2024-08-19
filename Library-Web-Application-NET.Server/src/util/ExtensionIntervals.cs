@@ -2,7 +2,7 @@
 
 namespace Library_Web_Application_NET.Server.src.util
 {
-    public class ExtensionsIntervals
+    public class ExtensionIntervals
     {
         public static readonly int DEFAULT_RESERVATION_TIME = 14;
 

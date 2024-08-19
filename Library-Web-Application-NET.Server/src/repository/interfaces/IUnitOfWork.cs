@@ -1,7 +1,11 @@
-﻿namespace Library_Web_Application_NET.Server.src.repository.interfaces
+﻿using Library_Web_Application_NET.Server.src.data.context;
+
+namespace Library_Web_Application_NET.Server.src.repository.interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
+        LibraryDbContext Context { get; }
+
         IAuthorRepository Authors { get; }
         
         IAuthorResourceRepository AuthorResources { get; }
