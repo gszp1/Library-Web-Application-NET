@@ -8,13 +8,15 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
 
         Task<T?> FindByIdAsync(int id);
 
-        Task<IEnumerable<T>> FindAllAsync();
+        Task<List<T>> FindAllAsync();
 
         Task SaveAsync(T entity);
 
         Task SaveAllAsync(IEnumerable<T> entities);
 
         void Update(T entity);
+
+        void UpdateRange(List<T> entities);
 
         void Remove(T entity);
 

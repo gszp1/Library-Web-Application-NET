@@ -27,7 +27,7 @@ namespace Library_Web_Application_NET.Server.src.repository
             await context.Set<T>().AddRangeAsync(entities);
         }
 
-        public async Task<IEnumerable<T>> FindAllAsync()
+        public async Task<List<T>> FindAllAsync()
         {
             return await context.Set<T>().ToListAsync();
         }
@@ -50,6 +50,11 @@ namespace Library_Web_Application_NET.Server.src.repository
         public void Update(T entity)
         {
             context.Set<T>().Update(entity);
+        }
+
+        public void UpdateRange(List<T> entities)
+        {
+            context.Set<T>().UpdateRange(entities);
         }
 
         public async Task<List<T>> FindAllSortedAsync(Sort sort)
