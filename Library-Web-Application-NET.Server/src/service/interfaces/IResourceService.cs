@@ -25,7 +25,5 @@ namespace Library_Web_Application_NET.Server.src.service.interfaces
         Task<List<AdminResourceDto>> GetAllAdminAsync();
 
         Task UpdateResourceAsync(UpdateResourceDto dto);
-
-
     }
 }

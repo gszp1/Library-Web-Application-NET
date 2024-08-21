@@ -102,7 +102,7 @@ namespace Library_Web_Application_NET.Server.src.repository
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<List<Resource>> FinAllWithDataAsync(string sortBy, bool descending)
+        public async Task<List<Resource>> FindAllWithDataAsync(string sortBy, bool descending)
         {
             var query = context
                 .Resources
