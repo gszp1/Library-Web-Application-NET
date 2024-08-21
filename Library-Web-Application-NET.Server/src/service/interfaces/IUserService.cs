@@ -9,20 +9,20 @@ namespace Library_Web_Application_NET.Server.src.service.interfaces
 
         Task UpdateUserCredentialsAsync(UserDto userDto);
 
-        Task<User> GetUserByEmailAsync(string email);
+        Task<User?> GetUserByEmailAsync(string email);
 
-        Task<User> SaveUserAsync(User user);
+        Task SaveUserAsync(User user);
 
-        Task UpdateUserImageUrl(string email, string imageUrl);
+        Task UpdateUserImageUrlAsync(string email, string imageUrl);
 
         Task<List<AdminUserDto>> FindAllByEmailKeywordAsync(string keyword);
 
         Task<List<AdminUserDto>> FindAllAsync();
 
+        Task<AdminUserDto> FindByIdAsync(int id);
+
         Task UpdateUserAsync(AdminUserDto dto);
 
         Task CancelAllActiveUserReservationsAsync(string email);
-
-        Task UpdateUserWithDtoAsync(User user, AdminUserDto dto);
     }
 }

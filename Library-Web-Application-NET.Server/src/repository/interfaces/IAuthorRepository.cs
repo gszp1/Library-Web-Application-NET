@@ -9,5 +9,7 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
         Task<Author?> FindByAuthorIdAsync(int authorId);
 
         Task<List<Author>> FindByEmailsAsync(List<string> emails);
+
+        Task<List<Author>> FindAllSortedAsync(string sortBy, bool sortDescending);
     }
 }

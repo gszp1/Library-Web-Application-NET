@@ -8,7 +8,7 @@ namespace Library_Web_Application_NET.Server.src.model
 
         public DateOnly ReservationStart { get; set; }
 
-        public DateOnly ReservationEnd { get; set; }
+        public DateOnly? ReservationEnd { get; set; }
             
         public ReservationStatus Status { get; set; }
 

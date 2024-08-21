@@ -12,7 +12,7 @@ namespace Library_Web_Application_NET.Server.src.dto
 
         public DateOnly Start {  get; set; }
 
-        public DateOnly End { get; set; }
+        public DateOnly? End { get; set; }
 
         public int NumberOfExtensions { get; set; }
 

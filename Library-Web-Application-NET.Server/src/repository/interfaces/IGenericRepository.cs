@@ -1,17 +1,27 @@
-﻿namespace Library_Web_Application_NET.Server.src.repository.interfaces
+﻿using Library_Web_Application_NET.Server.src.data.context;
+using Library_Web_Application_NET.Server.src.util;
+
+namespace Library_Web_Application_NET.Server.src.repository.interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<T> GetByIdAsync(int id);
 
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<T?> FindByIdAsync(int id);
 
-        Task AddAsync(T entity);
+        Task<List<T>> FindAllAsync();
 
-        Task AddRangeAsync(IEnumerable<T> entities);
+        Task SaveAsync(T entity);
+
+        Task SaveAllAsync(IEnumerable<T> entities);
+
+        void Update(T entity);
+
+        void UpdateRange(List<T> entities);
 
         void Remove(T entity);
 
         void RemoveRange(IEnumerable<T> entities);
+
+        Task<List<T>> FindAllSortedAsync(Sort sort);
     }
 }

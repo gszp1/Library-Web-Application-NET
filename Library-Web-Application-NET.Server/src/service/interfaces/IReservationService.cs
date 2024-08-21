@@ -15,7 +15,7 @@ namespace Library_Web_Application_NET.Server.src.service.interfaces
 
         Task CancelReservationAsync(int reservationId);
 
-        Task<List<Reservation>> SaveAllAsync(List<Reservation> reservations);
+        Task SaveAllAsync(List<Reservation> reservations);
 
         Task<List<UserReservationDto>> GetUserReservationsAsync(string userEmail);
     
