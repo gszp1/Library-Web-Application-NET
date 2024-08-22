@@ -2,5 +2,15 @@
 {
     public interface IStatisticsService
     {
+
+        Task<UserStatisticsDto> GetUserStatisticsAsync();
+
+        Task<ResourceStatisticsDto> GetResourceStatisticsAsync();
+
+        Task<CountsPerMonthDto> GetReservationCountsPerMonthAsync();
+
+        Task<CountsPerMonthDto> GetUsersRegistrationsCountsPerMonthAsync();
+
+        Task<TopThreeResourcesDto> GetTopThreeResourcesAsync();
     }
 }
