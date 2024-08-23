@@ -127,5 +127,13 @@ namespace Library_Web_Application_NET.Server.src.repository
                 .OrderByDescending(r => r[1])
                 .ToListAsync();
         }
+
+        public async Task<List<Reservation>> FindAllWithStatusesAsync(List<ReservationStatus> statuses)
+        {
+            return await context
+                .Reservations
+                .Where(r => statuses.Contains(r.Status))
+                .ToListAsync();
+        }
     }
 }

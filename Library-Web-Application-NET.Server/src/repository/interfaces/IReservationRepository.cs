@@ -31,5 +31,7 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
         Task<long> CountReservationsByStartMonthAsync(int month);
 
         Task<List<object[]>> GetReservationsWithCountsAsync();
+
+        Task<List<Reservation>> FindAllWithStatuses(List<ReservationStatus> statuses);
     }
 }

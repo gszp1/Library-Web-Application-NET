@@ -2,6 +2,7 @@
 using Library_Web_Application_NET.Server.src.repository.interfaces;
 using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.statistics.interfaces;
+using Library_Web_Application_NET.Server.src.util;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Library_Web_Application_NET.Server.src.statistics
@@ -40,7 +41,16 @@ namespace Library_Web_Application_NET.Server.src.statistics
 
         public async Task<ResourceStatisticsDto> GetResourceStatisticsAsync()
         {
+            List<Resource> resources = await unitOfWork.Resources.FindAllAsync();
+            List<ResourceInstance> resourceInstances = await unitOfWork.ResourceInstances.FindAllAsync();
+            List<Reservation> reservations = await unitOfWork.Reservations.
+            return new ResourceStatisticsDto()
+            {
+                NumberOfResources = resources.Count(),
+                NumberOfInstances = resourceInstances.Count(),
+                ReservedInstances = resourceInstances.Where(ri => ri.Status == ReservationStatus.Borrowed).ToList(),
 
+            }
         }
 
         public async Task<CountsPerMonthDto> GetReservationCountsPerMonthAsync()
