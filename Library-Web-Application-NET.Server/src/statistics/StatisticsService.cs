@@ -43,14 +43,16 @@ namespace Library_Web_Application_NET.Server.src.statistics
         {
             List<Resource> resources = await unitOfWork.Resources.FindAllAsync();
             List<ResourceInstance> resourceInstances = await unitOfWork.ResourceInstances.FindAllAsync();
-            List<Reservation> reservations = await unitOfWork.Reservations.
+            List<Reservation> reservations = await unitOfWork
+                .Reservations
+                .FindAllWithStatusesAsync([ReservationStatus.Active, ReservationStatus.Borrowed]);
             return new ResourceStatisticsDto()
             {
                 NumberOfResources = resources.Count(),
                 NumberOfInstances = resourceInstances.Count(),
-                ReservedInstances = resourceInstances.Where(ri => ri.Status == ReservationStatus.Borrowed).ToList(),
-
-            }
+                ReservedInstances = reservations.Where(r => r.Status == ReservationStatus.Active).Count(),
+                BorrowedInstances = reservations.Where(r => r.Status == ReservationStatus.Borrowed).Count()
+            };
         }
 
         public async Task<CountsPerMonthDto> GetReservationCountsPerMonthAsync()
