@@ -57,7 +57,7 @@ namespace Library_Web_Application_NET.Server.src.statistics
 
         public async Task<CountsPerMonthDto> GetReservationCountsPerMonthAsync()
         {
-            List<Reservation> reservations = await unitOfWork.Reservations.
+           
         }
 
         public async Task<CountsPerMonthDto> GetUsersRegistrationsCountsPerMonthAsync()

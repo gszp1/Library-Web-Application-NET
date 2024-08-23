@@ -1,6 +1,7 @@
 ﻿using Library_Web_Application_NET.Server.src.data.context;
 using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.repository.interfaces;
+using Library_Web_Application_NET.Server.src.statistics;
 using Library_Web_Application_NET.Server.src.util;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,6 +43,16 @@ namespace Library_Web_Application_NET.Server.src.repository
                 .Users
                 .Where(u => u.Role == Role.User && u.JoinDate.Month == month)
                 .CountAsync();
+        }
+
+        public async Task<List<MonthCount>> GetNumberOfRegistrationsPerMonthAsync()
+        {
+            return await context
+                .Users
+                .GroupBy(u => u.JoinDate.Month)
+                .Select(u => new MonthCount() { Month = u.Key, Count = u.Count() })
+                .OrderByDescending(m => m.Month)
+                .ToListAsync();
         }
     }
 }
