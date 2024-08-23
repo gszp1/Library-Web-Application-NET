@@ -2,7 +2,7 @@
 {
     public class MonthCount
     {
-        public short Month { get; set; }
+        public int Month { get; set; }
 
         public long Count { get; set; }
     }
