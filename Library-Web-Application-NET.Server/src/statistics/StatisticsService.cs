@@ -3,6 +3,7 @@ using Library_Web_Application_NET.Server.src.repository.interfaces;
 using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.statistics.interfaces;
 using Library_Web_Application_NET.Server.src.util;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Library_Web_Application_NET.Server.src.statistics
@@ -57,12 +58,64 @@ namespace Library_Web_Application_NET.Server.src.statistics
 
         public async Task<CountsPerMonthDto> GetReservationCountsPerMonthAsync()
         {
-           
+            CountsPerMonthDto dto = new CountsPerMonthDto();
+            List<MonthCount> monthCounts = await unitOfWork.Reservations.GetReservationCountPerMonthAsync();
+            FillCountsPerMonthDto(dto, monthCounts);
+            return dto;
         }
 
         public async Task<CountsPerMonthDto> GetUsersRegistrationsCountsPerMonthAsync()
         {
+            CountsPerMonthDto dto = new CountsPerMonthDto();
+            List<MonthCount> monthCounts = await unitOfWork.Users.GetNumberOfRegistrationsPerMonthAsync();
+            FillCountsPerMonthDto(dto, monthCounts);
+            return dto;
+        }
 
+        public void FillCountsPerMonthDto(CountsPerMonthDto dto, List<MonthCount> monthCounts)
+        {
+            foreach (var count in monthCounts)
+            {
+                switch (count.Month)
+                {
+                    case 1:
+                        dto.Jan = count.Count;
+                        break;
+                    case 2:
+                        dto.Feb = count.Count;
+                        break;
+                    case 3:
+                        dto.Mar = count.Count;
+                        break;
+                    case 4:
+                        dto.Apr = count.Count;
+                        break;
+                    case 5:
+                        dto.May = count.Count;
+                        break;
+                    case 6:
+                        dto.Jun = count.Count;
+                        break;
+                    case 7:
+                        dto.Jul = count.Count;
+                        break;
+                    case 8:
+                        dto.Aug = count.Count;
+                        break;
+                    case 9:
+                        dto.Sep = count.Count;
+                        break;
+                    case 10:
+                        dto.Oct = count.Count;
+                        break;
+                    case 11:
+                        dto.Nov = count.Count;
+                        break;
+                    case 12:
+                        dto.Dec = count.Count;
+                        break;
+                }
+            }
         }
 
         public async Task<TopThreeResourcesDto> GetTopThreeResourcesAsync()
