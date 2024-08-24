@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Library_Web_Application_NET.Server.src.statistics
 {
@@ -15,18 +16,33 @@ namespace Library_Web_Application_NET.Server.src.statistics
         }
 
         [HttpGet("users")]
-        public ActionResult<UserStatisticsDto> GetUserStatistics() { }
+        public async Task<ActionResult<UserStatisticsDto>> GetUserStatistics() 
+        {
+            var res = await statisticsService.GetUserStatisticsAsync();
+            return Ok(res);
+        }
 
         [HttpGet("resources")]
-        public ActionResult<ResourceStatisticsDto> GetResourceStatistics() { }
+        public async Task<ActionResult<ResourceStatisticsDto>> GetResourceStatistics()
+        {
+            return Ok(await statisticsService.GetResourceStatisticsAsync());
+        }
 
         [HttpGet("reservations/monthCounts")]
-        public ActionResult<CountsPerMonthDto> GetReservationCounts() { }
+        public async Task<ActionResult<CountsPerMonthDto>> GetReservationCounts()
+        {
+            return Ok(await statisticsService.GetReservationCountsPerMonthAsync());
+        }
 
         [HttpGet("registrations/monthCounts")]
-        public ActionResult<CountsPerMonthDto> GetRegistrationsCounts() { }
+        public async Task<ActionResult<CountsPerMonthDto>> GetRegistrationsCounts() {
+            return Ok(await statisticsService.GetUsersRegistrationsCountsPerMonthAsync());
+        }
 
         [HttpGet("reservations/top3")]
-        public ActionResult<TopThreeResourcesDto> GetTopThreeReservationCounts() { }
+        public async Task<ActionResult<TopThreeResourcesDto>> GetTopThreeReservationCounts()
+        {
+            return Ok(await statisticsService.GetTopThreeResourcesAsync());
+        }
     }
 }
