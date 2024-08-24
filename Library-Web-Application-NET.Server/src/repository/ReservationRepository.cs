@@ -1,6 +1,7 @@
 ﻿using Library_Web_Application_NET.Server.src.data.context;
 using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.repository.interfaces;
+using Library_Web_Application_NET.Server.src.statistics;
 using Library_Web_Application_NET.Server.src.util;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -125,6 +126,24 @@ namespace Library_Web_Application_NET.Server.src.repository
                     res.Count()
                 })
                 .OrderByDescending(r => r[1])
+                .ToListAsync();
+        }
+
+        public async Task<List<Reservation>> FindAllWithStatusesAsync(List<ReservationStatus> statuses)
+        {
+            return await context
+                .Reservations
+                .Where(r => statuses.Contains(r.Status))
+                .ToListAsync();
+        }
+
+        public async Task<List<MonthCount>> GetReservationCountPerMonthAsync()
+        {
+            return await context
+                .Reservations
+                .GroupBy(r => r.ReservationStart.Month)
+                .Select(g => new MonthCount() { Month = g.Key, Count = g.Count()})
+                .OrderByDescending(g => g.Month)
                 .ToListAsync();
         }
     }

@@ -4,6 +4,8 @@ using Library_Web_Application_NET.Server.src.repository;
 using Library_Web_Application_NET.Server.src.repository.interfaces;
 using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.service.interfaces;
+using Library_Web_Application_NET.Server.src.statistics;
+using Library_Web_Application_NET.Server.src.statistics.interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library_Web_Application_NET.Server
@@ -46,6 +48,7 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddScoped<IResourceInstanceService, ResourceInstanceService>();
             builder.Services.AddScoped<IResourceService, ResourceService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 
             // Contollers
             builder.Services.AddControllers();
