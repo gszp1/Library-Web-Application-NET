@@ -21,5 +21,6 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
         Task<Resource?> FindByIdentifierAsync(string identifier);
 
         Task<List<Resource>> FindAllWithDataAsync(string sortBy, bool descending);
+
     }
 }

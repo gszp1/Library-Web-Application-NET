@@ -1,4 +1,5 @@
 ﻿using Library_Web_Application_NET.Server.src.dto;
+using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.service;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.ConstrainedExecution;
@@ -17,31 +18,36 @@ namespace Library_Web_Application_NET.Server.src.controller
         }
 
         [HttpGet("{email}/credentials")]
-        public ActionResult<UserDto> GetUserByEmail(string email)
+        public async Task<ActionResult<UserDto>> GetUserByEmail(string email)
         {
-
+            UserDto? user = await userService.GetUserByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
         }
 
         [HttpGet("update")]
-        public ActionResult<string> UpdateUserCredentials([FromBody] UserDto dto)
+        public async Task<ActionResult<string>> UpdateUserCredentials([FromBody] UserDto dto)
         {
 
         }
 
         [HttpGet("all")]
-        public ActionResult<List<AdminAuthorDto>> GetAllByEmailKeyword([FromQuery] string? keyword) 
+        public async Task<ActionResult<List<AdminAuthorDto>>> GetAllByEmailKeyword([FromQuery] string? keyword) 
         {
 
         }
 
         [HttpGet("{id}")]
-        public ActionResult<AdminUserDto> GetUserById(int id)
+        public async Task<ActionResult<AdminUserDto>> GetUserById(int id)
         {
 
         }
 
         [HttpPut("admin/update")]
-        public ActionResult<string> UpdateUser([FromBody] AdminUserDto dto)
+        public async Task<ActionResult<string>> UpdateUser([FromBody] AdminUserDto dto)
         {
 
         }

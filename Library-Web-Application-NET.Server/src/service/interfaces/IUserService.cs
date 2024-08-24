@@ -9,7 +9,7 @@ namespace Library_Web_Application_NET.Server.src.service.interfaces
 
         Task UpdateUserCredentialsAsync(UserDto userDto);
 
-        Task<User?> GetUserByEmailAsync(string email);
+        Task<UserDto?> GetUserByEmailAsync(string email);
 
         Task SaveUserAsync(User user);
 

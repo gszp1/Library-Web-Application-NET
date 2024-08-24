@@ -43,9 +43,22 @@ namespace Library_Web_Application_NET.Server.src.service
             }
         }
 
-        public async Task<User?> GetUserByEmailAsync(string email)
+        public async Task<UserDto?> GetUserByEmailAsync(string email)
         {
-            return await unitOfWork.Users.FindByEmailAsync(email);
+            User? user =  await unitOfWork.Users.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return null;
+            }
+            return new UserDto()
+            {
+                Name = user.Name,
+                Surname = user.Surname,
+                PhoneNumber = user.PhoneNumber,
+                JoinDate = user.JoinDate,
+                Email = user.Email,
+                ImageUrl = user.ImageUrl
+            };
         }
 
         public async Task SaveUserAsync(User user)
