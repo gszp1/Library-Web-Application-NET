@@ -25,7 +25,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             if (keyword.IsNullOrEmpty())
             {
                 return Ok(await resourceService.GetAllWithAuthorsAsync());
-            } 
+            }
             else
             {
                 return Ok(await resourceService.GetResourcesWithKeywordInTitleAsync(keyword));
@@ -44,7 +44,7 @@ namespace Library_Web_Application_NET.Server.src.controller
         }
 
         [HttpGet("{id}/description")]
-        public async Task<ActionResult<ResourceDescriptionDto>> GetDescription(int id) 
+        public async Task<ActionResult<ResourceDescriptionDto>> GetDescription(int id)
         {
             return Ok(await resourceService.GetResourceDescriptionAsync(id));
         }
@@ -52,7 +52,7 @@ namespace Library_Web_Application_NET.Server.src.controller
         [HttpGet("{id}/instances/notReserved")]
         public async Task<ActionResult<List<InstanceDto>>> GetNotReservedInstances(int id)
         {
-            
+            return await resourceService.
         }
 
         [HttpPost("create")]
@@ -60,7 +60,7 @@ namespace Library_Web_Application_NET.Server.src.controller
         {
             try
             {
-                Resource resource =  await resourceService.CreateResourceAsync(dto);
+                Resource resource = await resourceService.CreateResourceAsync(dto);
                 return Ok(resource.ResourceId.ToString());
             }
             catch (InvalidDataException otae)
@@ -81,11 +81,13 @@ namespace Library_Web_Application_NET.Server.src.controller
             {
                 return NotFound(nsre.Message);
             }
-            catch (InvalidRequestDataException irde) {
+            catch (InvalidRequestDataException irde)
             {
-                return BadRequest(irde.Message);
+                {
+                    return BadRequest(irde.Message);
+                }
             }
-        }
 
+        }
     }
 }
