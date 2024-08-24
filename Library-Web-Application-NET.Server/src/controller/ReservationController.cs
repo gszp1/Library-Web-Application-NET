@@ -1,4 +1,5 @@
 ﻿using Library_Web_Application_NET.Server.src.dto;
+using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,45 +17,109 @@ namespace Library_Web_Application_NET.Server.src.controller
         }
 
         [HttpGet("all")]
-        public ActionResult<List<AdminReservationDto>> GetAllReservations()
+        public async Task<ActionResult<List<AdminReservationDto>>> GetAllReservations()
         {
-
+            return Ok(await reservationService.GetAllReservationsAsync());
         }
 
         [HttpPost("create")]
-        public ActionResult<string> CreateReservation([FromBody] ReservationRequest request)
+        public async Task<ActionResult<string>> CreateReservation([FromBody] ReservationRequest request)
         {
-
+            try
+            {
+                await reservationService.CreateReservationAsync(request.UserEmail, request.InstanceId);
+                return Ok("Reservation created.");
+            }
+            catch (InstanceReservedException ire)
+            {
+                return Conflict("Instance is already reserved.");
+            }
+            catch (NoSuchRecordException nsre)
+            {
+                return NotFound(nsre.Message);
+            }
+            catch (UserAlreadyReservedResourceException uarre)
+            {
+                return Conflict("You have already reserved such instance.");
+            }
         }
 
         [HttpPut("{email}/all")]
-        public ActionResult<List<UserReservationDto>> GetAllReservationsByUserEmail(string email)
+        public async Task<ActionResult<List<UserReservationDto>>> GetAllReservationsByUserEmail(string email)
         {
-
+            return Ok(await reservationService.GetUserReservationsAsync(email));
         }
 
         [HttpPut("{id}/extend")]
-        public ActionResult<string> ExtendReservation(int id)
+        public async Task<ActionResult<string>> ExtendReservation(int id)
         {
-
+            try
+            {
+                await reservationService.ExtendReservationAsync(id);
+                return Ok("Reservation extended.");
+            }
+            catch (NoSuchRecordException nsre)
+            {
+                return NotFound(nsre.Message);
+            }
+            catch (OperationNotAvailableException onae)
+            {
+                return BadRequest(onae.Message);
+            }
         }
 
         [HttpPut("{id}/cancel")]
-        public ActionResult<string> CancelReservation(int id)
+        public async Task<ActionResult<string>> CancelReservation(int id)
         {
-
+            try
+            {
+                await reservationService.CancelReservationAsync(id);
+                return Ok("Reservation cancelled");
+            }
+            catch (NoSuchRecordException nsre)
+            {
+                return NotFound(nsre.Message);
+            }
+            catch (OperationNotAvailableException onae)
+            {
+                return BadRequest(onae.Message);
+            }
         }
 
         [HttpPut("{id}/borrow")]
-        public ActionResult<string> BorrowReservation(int id)
+        public async Task<ActionResult<string>> BorrowReservation(int id)
         {
-
+            try
+            {
+                await reservationService.ChangeToBorrowAsync(id);
+                return Ok("Resource borrowed.");
+            }
+            catch (NoSuchRecordException nsre)
+            {
+                return NotFound(nsre.Message);
+            }
+            catch (OperationNotAvailableException onae)
+            {
+                return BadRequest(onae.Message);
+            }
         }
 
         [HttpPut("update")]
-        public ActionResult<string> UpdateReservation([FromBody] AdminReservationDto dto) 
+        public async Task<ActionResult<string>> UpdateReservation([FromBody] AdminReservationDto dto) 
         { 
-
+            try
+            {
+                await reservationService.UpdateReservationAsync(dto);
+                return Ok("Reservation updated.");
+            }
+            catch (NoSuchRecordException nsre)
+            {
+                return NotFound(nsre.Message);
+            }
+            catch (OperationNotAvailableException onae)
+            {
+                return BadRequest(onae.Message);
+            }
         }
     }
 }
