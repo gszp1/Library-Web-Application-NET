@@ -14,9 +14,13 @@ namespace Library_Web_Application_NET.Server.src.controller
     {
         private readonly ResourceService resourceService;
 
-        public ResourceController(ResourceService resourceService)
+        private readonly ResourceInstanceService instanceService;
+
+        public ResourceController(ResourceService resourceService, ResourceInstanceService instanceService)
         {
+            
             this.resourceService = resourceService;
+            this.instanceService = instanceService;
         }
 
         [HttpGet("all")]
@@ -39,8 +43,25 @@ namespace Library_Web_Application_NET.Server.src.controller
         }
 
         [HttpGet("all/paginated")]
-        public async Task<ActionResult<List<ResourceDto>>> GetAllPaginated([FromQuery] string? keyword)
+        public async Task<ActionResult<List<ResourceDto>>> GetAllPaginated
+        (
+            [FromQuery] string? keyword,
+            [FromQuery] int? page,
+            [FromQuery] int? size 
+        )
         {
+            size = size == null ? 10 : size;
+            page = page == null ? 1 : page;
+            Pageable pageable = new Pageable()
+            {
+                PageSize = size.Value,
+                PageNumber = page.Value
+            };
+            if (keyword.IsNullOrEmpty())
+            {
+                return Ok(await resourceService.GetAllWithAuthorsPageableAsync(pageable));
+            }
+            return Ok(await resourceService.GetResourcesWithKeywordInTitlePageableAsync(keyword, pageable));
         }
 
         [HttpGet("{id}/description")]
@@ -52,7 +73,7 @@ namespace Library_Web_Application_NET.Server.src.controller
         [HttpGet("{id}/instances/notReserved")]
         public async Task<ActionResult<List<InstanceDto>>> GetNotReservedInstances(int id)
         {
-            return await resourceService.
+            return Ok(await instanceService.GetNotReservedInstancesOfResourceAsync(id));
         }
 
         [HttpPost("create")]

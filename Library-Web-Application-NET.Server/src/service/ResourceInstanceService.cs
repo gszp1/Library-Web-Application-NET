@@ -183,5 +183,20 @@ namespace Library_Web_Application_NET.Server.src.service
                 throw new OperationFailedException ("Failed to create resource instance.");
             }
         }
+
+        public async Task<List<InstanceDto>> GetNotReservedInstancesOfResource(int resourceId)
+        {
+            List<ResourceInstance> instances = await unitOfWork
+                .ResourceInstances
+                .FindByResourceIdAndIsReservedFalseAsync(resourceId);
+            return instances
+                .Select(i => new InstanceDto()
+                { 
+                    Id = i.InstanceId,
+                    IsReserved = i.Reserved,
+                    ResourceId = i.ResourceId
+                }
+                ).ToList();
+        }
     }
 }

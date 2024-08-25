@@ -24,5 +24,7 @@ namespace Library_Web_Application_NET.Server.src.service.interfaces
         Task UpdateInstanceAsync(AdminInstanceDto dto);
 
         Task CreateInstanceAsync(int resourceId);
+
+        Task<List<InstanceDto>> GetNotReservedInstancesOfResource(int resourceId);
     }
 }
