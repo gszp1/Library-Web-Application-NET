@@ -53,7 +53,21 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddControllers();
 
 
+            // Cors Config
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
+
             var app = builder.Build();
+
+            app.UseCors("AllowAll");
 
             using var scope = app.Services.CreateScope();
             var services = scope.ServiceProvider;
