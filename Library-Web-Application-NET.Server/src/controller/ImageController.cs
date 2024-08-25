@@ -102,7 +102,7 @@ namespace Library_Web_Application_NET.Server.src.controller
         {
             try
             {
-                if (image == null || !ValidateFileType(image) || !(await resourceService.ResourceExistsAsync(id)) {
+                if (image == null || !ValidateFileType(image) || !(await resourceService.ResourceExistsAsync(id))) {
                     return BadRequest("Invalid data provided.");
                 }
                 var originalFilename = image.FileName;
@@ -141,8 +141,6 @@ namespace Library_Web_Application_NET.Server.src.controller
                 return NotFound();
             }
         }
-
-
 
         private bool ValidateFileType(IFormFile file)
         {
