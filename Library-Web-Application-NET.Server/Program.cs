@@ -2,6 +2,10 @@
 using Library_Web_Application_NET.Server.src.data.context;
 using Library_Web_Application_NET.Server.src.repository;
 using Library_Web_Application_NET.Server.src.repository.interfaces;
+using Library_Web_Application_NET.Server.src.service;
+using Library_Web_Application_NET.Server.src.service.interfaces;
+using Library_Web_Application_NET.Server.src.statistics;
+using Library_Web_Application_NET.Server.src.statistics.interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library_Web_Application_NET.Server
@@ -16,7 +20,6 @@ namespace Library_Web_Application_NET.Server
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -25,14 +28,31 @@ namespace Library_Web_Application_NET.Server
 
             builder.Services.AddTransient<DbInitializer>();
 
-            builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddTransient<IResourceRepository, ResourceRepository>();
-            builder.Services.AddTransient<IResourceInstanceRepository, ResourceInstanceRepository>();
-            builder.Services.AddTransient<IReservationRepository, ReservationRepository>();
-            builder.Services.AddTransient<IPublisherRepository, PublisherRepository>();
-            builder.Services.AddTransient<IAuthorResourceRepository, AuthorResourceRepository>();
-            builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
-            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+            // Repositories
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<IResourceRepository, ResourceRepository>();
+            builder.Services.AddScoped<IResourceInstanceRepository, ResourceInstanceRepository>();
+            builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+            builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
+            builder.Services.AddScoped<IAuthorResourceRepository, AuthorResourceRepository>();
+            builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Services
+            builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+            builder.Services.AddScoped<IAuthorResourceService, AuthorResourceService>();
+            builder.Services.AddScoped<IAuthorService, AuthorService>();
+            builder.Services.AddScoped<IPublisherService, PublisherService>();
+            builder.Services.AddScoped<IReservationService, ReservationService>();
+            builder.Services.AddScoped<IResourceInstanceService, ResourceInstanceService>();
+            builder.Services.AddScoped<IResourceService, ResourceService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IStatisticsService, StatisticsService>();
+
+            // Contollers
+            builder.Services.AddControllers();
+
 
             var app = builder.Build();
 
@@ -54,7 +74,6 @@ namespace Library_Web_Application_NET.Server
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
