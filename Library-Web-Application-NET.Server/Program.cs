@@ -84,8 +84,6 @@ namespace Library_Web_Application_NET.Server
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseAuthorization();
 
             app.MapControllers();
