@@ -75,7 +75,6 @@ namespace Library_Web_Application_NET.Server
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.MapFallbackToFile("/index.html");
