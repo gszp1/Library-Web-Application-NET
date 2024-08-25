@@ -1,49 +1,75 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import React, { useState, useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import NavigationBar from './component/NavigationBar';
+import HomePage from './page/homePage/HomePage';
+import ContactPage from './page/contactPage/ContactPage';
+import ResourcesPage from './page/resourcesPage/ResourcesPage';
+import AdminPanelPage from './page/AdminPanelPage/AdminPanelPage';
+import AccountPage from './page/AccountPage/AccountPage';
+import ResourcePage from './page/resourcesPage/ResourcePage';
+import "./AppStyles.css";
+import RegistrationPage from './page/RegistrationPage/RegistrationPage';
+import LoginWindow from './component/LoginWindow';
 
 function App() {
-    const [forecasts, setForecasts] = useState();
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [loginWindowOpened, setLoginWindowOpened] = useState(false);
+  const loginWindowRef = useRef(null);
+  const location = useLocation();
 
-    useEffect(() => {
-        populateWeatherData();
-    }, []);
+  const openLoginWindow = () => setLoginWindowOpened(true);
+  const closeLoginWindow = () => setLoginWindowOpened(false);
 
-    const contents = forecasts === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-        : <table className="table table-striped" aria-labelledby="tabelLabel">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
-                    </tr>
-                )}
-            </tbody>
-        </table>;
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (loginWindowRef.current && !loginWindowRef.current.contains(event.target)) {
+        closeLoginWindow();
+      }
+    };
 
-    return (
-        <div>
-            <h1 id="tabelLabel">Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
-            {contents}
-        </div>
-    );
-    
-    async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        const data = await response.json();
-        setForecasts(data);
+    if (loginWindowOpened) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
     }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [loginWindowOpened]);
+
+  useEffect(() => {
+  }, [location]);
+
+  return (
+    <>
+      <div className='appBackground'>
+        <NavigationBar
+          searchKeyword={searchKeyword}
+          setSearchKeyword={setSearchKeyword}
+          openLoginWindow={openLoginWindow}
+        />
+        <Routes>
+          <Route path="/" element={<ResourcesPage searchKeyword={searchKeyword}/>} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/resources" element={<ResourcesPage searchKeyword={searchKeyword}/>} />
+          <Route path="/resources/:resourceId" element={<ResourcePage />} />
+          <Route path="/register" element={<RegistrationPage/>} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/adminPanel" element={<AdminPanelPage />} />
+        </Routes>
+      </div>
+      {loginWindowOpened && <LoginWindow ref={loginWindowRef} closeLoginWindow={closeLoginWindow} />}
+    </>
+  );
 }
 
-export default App;
+function AppRouter() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
+
+export default AppRouter;

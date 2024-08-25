@@ -41,7 +41,6 @@ namespace Library_Web_Application_NET.Server
 
             // Services
             builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
-            builder.Services.AddScoped<IAuthorResourceService, AuthorResourceService>();
             builder.Services.AddScoped<IAuthorService, AuthorService>();
             builder.Services.AddScoped<IPublisherService, PublisherService>();
             builder.Services.AddScoped<IReservationService, ReservationService>();
