@@ -39,7 +39,7 @@ function ResourcesSection({setSection}) {
     }
 
     const updateResource = async (updatedResource) => {
-        const url = 'https://localhost:9090/api/resources/update';
+        const url = 'http://localhost:9090/api/resources/update';
         try {
             let response = await axios.put(url, updatedResource, {
                 headers: {
@@ -62,7 +62,7 @@ function ResourcesSection({setSection}) {
     }
 
     const updateImage  = async (newImage, resId) => {
-        const url = `https://localhost:9090/api/images/update/${resId}`;
+        const url = `http://localhost:9090/api/images/update/${resId}`;
         const formData = new FormData();
         formData.append("image", newImage);
         try {
@@ -87,7 +87,7 @@ function ResourcesSection({setSection}) {
     }
 
     const fetchResources = async() => {
-        const url = 'https://localhost:9090/api/resources/admin/all';
+        const url = 'http://localhost:9090/api/resources/admin/all';
         try {
             let response = await axios.get(url, {
                 headers: {
@@ -107,7 +107,7 @@ function ResourcesSection({setSection}) {
 
     const fetchDescription = async (updatedResource, setUpdatedResource) => {
         try {
-            const response = await axios.get(`https://localhost:9090/api/resources/${updatedResource.id}/description`);
+            const response = await axios.get(`http://localhost:9090/api/resources/${updatedResource.id}/description`);
             console.log(response.data);
             setUpdatedResource({...updatedResource, description: response.data.description || ''})
         } catch (error) {
@@ -120,7 +120,7 @@ function ResourcesSection({setSection}) {
     }
 
     const fetchInstances = async () => {
-        const url = `https://localhost:9090/api/instances/all/resource/${selectedResource.id}`;
+        const url = `http://localhost:9090/api/instances/all/resource/${selectedResource.id}`;
         try {
             const response = await axios.get(url, {
                 headers: {
@@ -138,7 +138,7 @@ function ResourcesSection({setSection}) {
     }
 
     const updateInstance = async (updatedInstance) => {
-        const url = 'https://localhost:9090/api/instances/update';
+        const url = 'http://localhost:9090/api/instances/update';
         try {
             let response = await axios.put(url, updatedInstance, {
             headers: {
@@ -162,7 +162,7 @@ function ResourcesSection({setSection}) {
     }
 
     const withdrawInstance = async (id) => {
-        const url = `https://localhost:9090/api/instances/${id}/withdraw`;
+        const url = `http://localhost:9090/api/instances/${id}/withdraw`;
         try {
             let response = await axios.put(url, {}, {
                 headers: {
@@ -185,7 +185,7 @@ function ResourcesSection({setSection}) {
     }
 
     const createInstance = async() => {
-        let url = `https://localhost:9090/api/instances/create/${selectedResource.id}`;
+        let url = `http://localhost:9090/api/instances/create/${selectedResource.id}`;
         try {
             let response = await axios.post(url, {}, {
                 headers: {

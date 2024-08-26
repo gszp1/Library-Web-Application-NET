@@ -28,7 +28,7 @@ function SettingsSection({setSection}) {
     }
 
     const createDatabaseNoData = async () => {
-        const url = 'https://localhost:9090/api/config/database/create';
+        const url = 'http://localhost:9090/api/config/database/create';
         try {
             let response = await axios.post(url, null, {
                 headers: {
@@ -48,7 +48,7 @@ function SettingsSection({setSection}) {
     }
 
     const createDatabaseWithData = async() => {
-        const url = 'https://localhost:9090/api/config/database/create';
+        const url = 'http://localhost:9090/api/config/database/create';
         try {
             let response = await axios.post(url, null, {
                 headers: {

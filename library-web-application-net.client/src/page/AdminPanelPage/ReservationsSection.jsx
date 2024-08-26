@@ -14,7 +14,7 @@ function ReservationsSection({setSection}){
     });
 
     const updateReservation = async (updatedReservation) => {
-        const url = `https://localhost:9090/api/reservations/update`;
+        const url = `http://localhost:9090/api/reservations/update`;
         let newData = {
             ...updatedReservation,
             title: updatedReservation.title || null,
@@ -45,7 +45,7 @@ function ReservationsSection({setSection}){
     }
 
     const borrowResource = async (id) => {
-        const url = `https://localhost:9090/api/reservations/${id}/borrow`;
+        const url = `http://localhost:9090/api/reservations/${id}/borrow`;
         try {
             await axios.put(url, {}, {
                 headers: {
@@ -68,7 +68,7 @@ function ReservationsSection({setSection}){
     }
 
     const fetchReservations = async () => {
-        let url = `https://localhost:9090/api/reservations/all`
+        let url = `http://localhost:9090/api/reservations/all`
         console.log(url);
         try {
             const response = await axios.get(url, {

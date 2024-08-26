@@ -14,7 +14,7 @@ function ReservationsSection({userEmail}) {
     });
 
     const fetchReservations = async () => {
-        const url = `https://localhost:9090/api/reservations/${userEmail}/all`;
+        const url = `http://localhost:9090/api/reservations/${userEmail}/all`;
         try {
             let response = await axios.get(url, {
                 headers: {
@@ -42,7 +42,7 @@ function ReservationsSection({userEmail}) {
     };
 
     const extendReservation = async(id) => {
-        const url = `https://localhost:9090/api/reservations/${id}/extend`;
+        const url = `http://localhost:9090/api/reservations/${id}/extend`;
         try {
             let response = await axios.put(url, {}, {
                 headers: {
@@ -74,7 +74,7 @@ function ReservationsSection({userEmail}) {
     }
 
     const cancelReservation = async(id) => {
-        const url = `https://localhost:9090/api/reservations/${id}/cancel`;
+        const url = `http://localhost:9090/api/reservations/${id}/cancel`;
         try {
             let response = await axios.put(url, {}, {
                 headers: {

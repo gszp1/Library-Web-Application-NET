@@ -16,7 +16,7 @@ function ResourcesPage({searchKeyword}) {
   useEffect(() => {
       const fetchResources = async () => {
           try {
-              let url = `https://localhost:9090/api/resources/all/paginated`;
+              let url = `http://localhost:9090/api/resources/all/paginated`;
               const params = {
                 keyword: debouncedSearchKeyword,
                 page: page,

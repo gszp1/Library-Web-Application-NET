@@ -15,7 +15,7 @@ function PublishersSection({setSection}) {
     });
     
     const fetchPublishers = async() => {
-        const url = 'https://localhost:9090/api/publishers/all';
+        const url = 'http://localhost:9090/api/publishers/all';
 
         try {
             let response = await axios.get(url, {
@@ -60,7 +60,7 @@ function PublishersSection({setSection}) {
             return;
         };
 
-        const url = 'https://localhost:9090/api/publishers/update';
+        const url = 'http://localhost:9090/api/publishers/update';
         try {
             let response = await axios.put(url, updatedPublisher, {
                 headers: {

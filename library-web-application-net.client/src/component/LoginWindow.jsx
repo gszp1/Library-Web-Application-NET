@@ -59,7 +59,7 @@ const LoginWindow = forwardRef(({ closeLoginWindow }, ref) => {
             setPrompts(outputPrompts);
             return;
         }
-        const url = 'https://localhost:9090/api/auth/authenticate'
+        const url = 'http://localhost:9090/api/auth/authenticate'
 
         try {
             let response = await axios.post(url, credentials, {
