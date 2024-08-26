@@ -1,6 +1,7 @@
 ﻿using Library_Web_Application_NET.Server.src.dto;
 using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.service;
+using Library_Web_Application_NET.Server.src.service.interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library_Web_Application_NET.Server.src.controller
@@ -9,9 +10,9 @@ namespace Library_Web_Application_NET.Server.src.controller
     [ApiController]
     public class ReservationController : ControllerBase
     {
-        private readonly ReservationService reservationService;
+        private readonly IReservationService reservationService;
 
-        public ReservationController(ReservationService reservationService)
+        public ReservationController(IReservationService reservationService)
         {
             this.reservationService = reservationService;
         }

@@ -41,7 +41,6 @@ namespace Library_Web_Application_NET.Server
 
             // Services
             builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
-            builder.Services.AddScoped<IAuthorResourceService, AuthorResourceService>();
             builder.Services.AddScoped<IAuthorService, AuthorService>();
             builder.Services.AddScoped<IPublisherService, PublisherService>();
             builder.Services.AddScoped<IReservationService, ReservationService>();
@@ -54,7 +53,21 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddControllers();
 
 
+            // Cors Config
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
+
             var app = builder.Build();
+
+            app.UseCors("AllowAll");
 
             using var scope = app.Services.CreateScope();
             var services = scope.ServiceProvider;
@@ -70,8 +83,6 @@ namespace Library_Web_Application_NET.Server
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-            app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
