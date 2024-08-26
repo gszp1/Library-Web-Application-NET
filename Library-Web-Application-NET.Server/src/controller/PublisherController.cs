@@ -1,6 +1,7 @@
 ﻿using Library_Web_Application_NET.Server.src.dto;
 using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.service;
+using Library_Web_Application_NET.Server.src.service.interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library_Web_Application_NET.Server.src.controller
@@ -9,9 +10,9 @@ namespace Library_Web_Application_NET.Server.src.controller
     [ApiController]
     public class PublisherController : ControllerBase
     {
-        private readonly PublisherService publisherService;
+        private readonly IPublisherService publisherService;
 
-        public PublisherController(PublisherService publisherService)
+        public PublisherController(IPublisherService publisherService)
         {
             this.publisherService = publisherService;
         }

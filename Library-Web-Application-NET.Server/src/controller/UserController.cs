@@ -2,6 +2,7 @@
 using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.service;
+using Library_Web_Application_NET.Server.src.service.interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Runtime.ConstrainedExecution;
@@ -12,9 +13,9 @@ namespace Library_Web_Application_NET.Server.src.controller
     [ApiController]
     public class UserController : ControllerBase
     {
-       private readonly UserService userService;
+       private readonly IUserService userService;
 
-        public UserController(UserService userService)
+        public UserController(IUserService userService)
         {
             this.userService = userService;
         }

@@ -2,6 +2,7 @@
 using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.service;
+using Library_Web_Application_NET.Server.src.service.interfaces;
 using Library_Web_Application_NET.Server.src.util;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -12,11 +13,11 @@ namespace Library_Web_Application_NET.Server.src.controller
     [ApiController]
     public class ResourceController : ControllerBase
     {
-        private readonly ResourceService resourceService;
+        private readonly IResourceService resourceService;
 
-        private readonly ResourceInstanceService instanceService;
+        private readonly IResourceInstanceService instanceService;
 
-        public ResourceController(ResourceService resourceService, ResourceInstanceService instanceService)
+        public ResourceController(IResourceService resourceService, IResourceInstanceService instanceService)
         {
             
             this.resourceService = resourceService;
