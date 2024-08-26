@@ -41,7 +41,7 @@ function AddResourceSection({setSection}) {
     };
 
     const createResource = async() => {
-        const url = 'https://localhost:9090/api/resources/create';
+        const url = 'http://localhost:9090/api/resources/create';
 
         try {
             let response = await axios.post(url, credentials, {
@@ -81,7 +81,7 @@ function AddResourceSection({setSection}) {
     }
 
     const uploadImage = async (resourceId) => {
-        const url = `https://localhost:9090/api/images/create/${resourceId}`;
+        const url = `http://localhost:9090/api/images/create/${resourceId}`;
         const formData = new FormData();
         formData.append("image", image);
 

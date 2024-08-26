@@ -22,7 +22,7 @@ function AddAuthorSection({setSection}) {
     };
 
     const createAuthor = async () => {
-        const url = 'https://localhost:9090/api/authors/create';
+        const url = 'http://localhost:9090/api/authors/create';
 
         try {
             let response = await axios.post(url, author, {

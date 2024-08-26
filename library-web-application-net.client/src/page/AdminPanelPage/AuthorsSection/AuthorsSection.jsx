@@ -20,7 +20,7 @@ function AuthorsSection({setSection}) {
     };
 
     const fetchAuthors = async() => {
-        const url = 'https://localhost:9090/api/authors/all';
+        const url = 'http://localhost:9090/api/authors/all';
 
         try {
             let response = await axios.get(url, {
@@ -71,7 +71,7 @@ function AuthorsSection({setSection}) {
             return;
         };
 
-        const url = 'https://localhost:9090/api/authors/update';
+        const url = 'http://localhost:9090/api/authors/update';
         try {
             let response = await axios.put(url, updatedAuthor, {
                 headers: {

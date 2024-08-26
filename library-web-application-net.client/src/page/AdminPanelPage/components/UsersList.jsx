@@ -20,7 +20,7 @@ function UsersList({users, fetchUsersByKeyword, setSection}) {
 
     const saveUser = async (updatedUser) => {
         try {
-            const url = `https://localhost:9090/api/users/admin/update`;
+            const url = `http://localhost:9090/api/users/admin/update`;
             console.log(updatedUser);
             const response = await axios.put(url, updatedUser, {
                 headers: {

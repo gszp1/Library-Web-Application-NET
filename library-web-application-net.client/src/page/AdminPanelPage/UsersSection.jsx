@@ -15,7 +15,7 @@ function UsersSection({setSection}) {
 
     const fetchUsersByKeyword = async () => {
         try {
-            let url = `https://localhost:9090/api/users/all`;
+            let url = `http://localhost:9090/api/users/all`;
             const params = {
             keyword: emailKeyword
             };
@@ -37,7 +37,7 @@ function UsersSection({setSection}) {
 
     const fetchUserWithId = async () => {
         try {
-            let url = `https://localhost:9090/api/users/${userId}`;
+            let url = `http://localhost:9090/api/users/${userId}`;
             const response = await axios.get(url, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('WebLibToken')}`

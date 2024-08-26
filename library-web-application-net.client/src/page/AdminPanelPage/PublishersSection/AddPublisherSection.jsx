@@ -16,7 +16,7 @@ function AddPublisherSection({setSection}) {
     })
 
     const createPublisher = async () => {
-        const url = 'https://localhost:9090/api/publishers/create';
+        const url = 'http://localhost:9090/api/publishers/create';
 
         try {
             let response = await axios.post(url, publisher, {
