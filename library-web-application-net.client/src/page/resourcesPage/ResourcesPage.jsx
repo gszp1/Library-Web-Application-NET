@@ -24,7 +24,7 @@ function ResourcesPage({searchKeyword}) {
               };
               const response = await axios.get(url, {params});
               console.log(response);
-              setResources(response.data.content);
+              setResources(response.data.items);
               setTotalPages(response.data.totalPages);
               setLoading(false);
           } catch (error) {
