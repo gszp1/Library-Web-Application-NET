@@ -25,7 +25,7 @@ function ResourcePage(){
     useEffect( () => {
         const fetchDescription = async () => {
             try {
-                const response = await axios.get(`https://localhost:9090/api/resources/${resource.id}/description`);
+                const response = await axios.get(`http://localhost:9090/api/resources/${resource.id}/description`);
                 setDescription(response.data);
                 setLoading(false);
             } catch (error) {
@@ -39,7 +39,7 @@ function ResourcePage(){
 
     const fetchInstances = async () => {
         try {
-            const response = await axios.get(`https://localhost:9090/api/resources/${resource.id}/instances`);
+            const response = await axios.get(`http://localhost:9090/api/resources/${resource.id}/instances`);
             setInstances(response.data);
             setInstanceLoading(false);
         } catch (error) {
@@ -61,7 +61,7 @@ function ResourcePage(){
             userEmail: '',
             instanceId
         };
-        const url = 'https://localhost:9090/api/reservations/create';
+        const url = 'http://localhost:9090/api/reservations/create';
 
         let token = localStorage.getItem('WebLibToken');
         if (token == null) {
