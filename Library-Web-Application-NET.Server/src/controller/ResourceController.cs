@@ -51,8 +51,8 @@ namespace Library_Web_Application_NET.Server.src.controller
             [FromQuery] int? size 
         )
         {
-            size = size == null ? 10 : size;
-            page = page == null ? 1 : page;
+            size = size.HasValue && size.Value > 0 ? size.Value : 10;
+            page = page.HasValue && page.Value > 0 ? page.Value : 1;
             Pageable pageable = new Pageable()
             {
                 PageSize = size.Value,
