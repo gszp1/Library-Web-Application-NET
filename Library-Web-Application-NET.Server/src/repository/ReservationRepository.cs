@@ -115,17 +115,17 @@ namespace Library_Web_Application_NET.Server.src.repository
                 .CountAsync();
         }
 
-        public async Task<List<object[]>> GetReservationsWithCountsAsync()
+        public async Task<List<ReservationCount>> GetReservationsWithCountsAsync()
         {
             return await context
                 .Reservations
                 .GroupBy(r => r.Instance.Resource.Title)
-                .Select(res => new object[]
+                .Select(res => new ReservationCount()
                 {
-                    res.Key,
-                    res.Count()
+                    Title = res.Key,
+                    Count = res.Count()
                 })
-                .OrderByDescending(r => r[1])
+                .OrderByDescending(r => r.Count)
                 .ToListAsync();
         }
 

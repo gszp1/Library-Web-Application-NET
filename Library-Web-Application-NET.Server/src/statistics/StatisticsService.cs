@@ -120,23 +120,23 @@ namespace Library_Web_Application_NET.Server.src.statistics
 
         public async Task<TopThreeResourcesDto> GetTopThreeResourcesAsync()
         {
-            List<object[]> resources = await unitOfWork.Reservations.GetReservationsWithCountsAsync();
+            List<ReservationCount> resources = await unitOfWork.Reservations.GetReservationsWithCountsAsync();
             string firstName = "", secondName = "", thirdName = "";
             long firstCount = 0L, secondCount = 0L, thirdCount = 0L;
             if (resources.Count > 0)
             {
-                firstName = (string)resources.ElementAt(0)[0];
-                firstCount = (long)resources.ElementAt(0)[1];
+                firstName = resources.ElementAt(0).Title;
+                firstCount = resources.ElementAt(0).Count;
             }
             if (resources.Count > 1)
             {
-                secondName = (string)resources.ElementAt(1)[0];
-                secondCount = (long)resources.ElementAt(1)[1];
+                secondName = resources.ElementAt(1).Title;
+                secondCount = resources.ElementAt(1).Count;
             }
             if (resources.Count > 2)
             {
-                thirdName = (string)resources.ElementAt(2)[0];
-                thirdCount = (long)resources.ElementAt(2)[1];
+                thirdName = resources.ElementAt(2).Title;
+                thirdCount = resources.ElementAt(2).Count;
             }
             return new TopThreeResourcesDto() {
                 FirstCount = firstCount,

@@ -24,7 +24,7 @@ function ThreeMostReservedResources({setSection}) {
     }
 
     const fetchThreeMostReservedResources = async () => {
-        const url = 'https://localhost:9090/api/statistics/reservations/top3';
+        const url = 'http://localhost:9090/api/statistics/reservations/top3';
         try {
             let response = await axios.get(url, {
                 headers: {

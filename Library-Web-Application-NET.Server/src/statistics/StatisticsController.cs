@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Library_Web_Application_NET.Server.src.statistics.interfaces;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library_Web_Application_NET.Server.src.statistics
@@ -8,9 +9,9 @@ namespace Library_Web_Application_NET.Server.src.statistics
     [ApiController]
     public class StatisticsController : ControllerBase
     {
-        private readonly StatisticsService statisticsService;
+        private readonly IStatisticsService statisticsService;
 
-        public StatisticsController(StatisticsService statisticsService) 
+        public StatisticsController(IStatisticsService statisticsService) 
         {
             this.statisticsService = statisticsService;
         }
