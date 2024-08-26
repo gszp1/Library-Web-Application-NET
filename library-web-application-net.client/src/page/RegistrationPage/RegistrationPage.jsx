@@ -153,7 +153,7 @@ function RegistrationPage() {
             password: credentials.password
         }
 
-        const url = 'https://localhost:9090/api/auth/register'
+        const url = 'http://localhost:9090/api/auth/register'
         try {
             const response = await axios.post(url, userCredentials, {
                 headers: {'Content-Type': 'application/json'}
