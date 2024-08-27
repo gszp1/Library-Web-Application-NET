@@ -1,5 +1,6 @@
 
 using Library_Web_Application_NET.Server.src.data.context;
+using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.repository;
 using Library_Web_Application_NET.Server.src.repository.interfaces;
 using Library_Web_Application_NET.Server.src.service;
@@ -7,6 +8,7 @@ using Library_Web_Application_NET.Server.src.service.interfaces;
 using Library_Web_Application_NET.Server.src.statistics;
 using Library_Web_Application_NET.Server.src.statistics.interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -58,8 +60,12 @@ namespace Library_Web_Application_NET.Server
             // JWT Config
             builder.Services.AddAuthentication(options =>
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme =
+                options.DefaultChallengeScheme =
+                options.DefaultForbidScheme =
+                options.DefaultScheme =
+                options.DefaultSignInScheme =
+                options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(options =>
             {
@@ -74,6 +80,16 @@ namespace Library_Web_Application_NET.Server
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                 };
             });
+
+            // Identity
+            builder.Services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireDigit = true;
+            })
+            .AddEntityFrameworkStores<LibraryDbContext>();
 
             // Cors Config
             builder.Services.AddCors(options =>
