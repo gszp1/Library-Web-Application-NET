@@ -1,20 +1,15 @@
 ﻿using Library_Web_Application_NET.Server.src.util;
+using Microsoft.AspNetCore.Identity;
 
 namespace Library_Web_Application_NET.Server.src.model
 {
-    public class User
+    public class User : IdentityUser
     {
         public int UserId { get; set; }
-
-        public string Email { get; set; }
 
         public string? Name { get; set; }
 
         public string? Surname { get; set; }
-
-        public string? PhoneNumber { get; set; }
-
-        public string Password { get; set; }
 
         public string? ImageUrl { get; set; }
         

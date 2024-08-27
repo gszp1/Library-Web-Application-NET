@@ -46,11 +46,6 @@ namespace Library_Web_Application_NET.Server.src.data.config
                 .HasMaxLength(12)
                 .IsRequired(false);
 
-            builder.Property(u => u.Password)
-                .HasColumnName("password")
-                .HasColumnType("nvarchar")
-                .IsRequired(true);
-
             builder.Property(u => u.ImageUrl)
                 .HasColumnName("image_url")
                 .HasColumnType("nvarchar")
