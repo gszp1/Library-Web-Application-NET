@@ -12,9 +12,9 @@ namespace Library_Web_Application_NET.Server.src.data.config
         {
             builder.ToTable("users");
 
-            builder.HasKey(u => u.UserId);
+            builder.HasKey(u => u.Id);
 
-            builder.Property(u => u.UserId)
+            builder.Property(u => u.Id)
                 .HasColumnName("user_id")
                 .HasColumnType("int")
                 .ValueGeneratedOnAdd();

@@ -89,7 +89,7 @@ namespace Library_Web_Application_NET.Server.src.service
             List<User> users = await unitOfWork.Users.FindByEmailKeywordAsync(keyword);
             return users.Select(u => new AdminUserDto
             {
-                Id = u.UserId,
+                Id = u.Id,
                 Name = u.Name,
                 Surname = u.Surname,
                 PhoneNumber = u.PhoneNumber,
@@ -107,7 +107,7 @@ namespace Library_Web_Application_NET.Server.src.service
             List<User> users = await unitOfWork.Users.FindAllAsync();
             return users.Select(u => new AdminUserDto
             {
-                Id = u.UserId,
+                Id = u.Id,
                 Name = u.Name,
                 Surname = u.Surname,
                 PhoneNumber = u.PhoneNumber,
@@ -128,7 +128,7 @@ namespace Library_Web_Application_NET.Server.src.service
                 ?? throw new NoSuchRecordException("User with given id does not exist.");
             return new AdminUserDto
             {
-                Id = user.UserId,
+                Id = user.Id,
                 Name = user.Name,
                 Surname = user.Surname,
                 PhoneNumber = user.PhoneNumber,

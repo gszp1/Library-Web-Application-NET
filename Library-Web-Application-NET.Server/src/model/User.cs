@@ -5,8 +5,6 @@ namespace Library_Web_Application_NET.Server.src.model
 {
     public class User : IdentityUser<int>
     {
-        public int UserId { get; set; }
-
         public string? Name { get; set; }
 
         public string? Surname { get; set; }

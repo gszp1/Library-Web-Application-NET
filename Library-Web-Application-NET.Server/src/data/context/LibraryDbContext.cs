@@ -1,11 +1,12 @@
 ﻿using Library_Web_Application_NET.Server.src.data.config;
 using Library_Web_Application_NET.Server.src.model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library_Web_Application_NET.Server.src.data.context
 {
-    public class LibraryDbContext : IdentityDbContext<User>
+    public class LibraryDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         // Tables
         public DbSet<Author> Authors { get; set; }

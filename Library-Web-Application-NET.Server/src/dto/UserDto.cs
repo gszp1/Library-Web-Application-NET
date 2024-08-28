@@ -8,6 +8,8 @@
 
         public string? PhoneNumber { get; set; }
 
+        public string Email {  get; set; }
+
         public DateOnly JoinDate { get; set; }
 
         public string? ImageUrl { get; set; }
