@@ -65,13 +65,13 @@ namespace Library_Web_Application_NET.Server.src.data.config
                 .IsRequired(true)
                 .HasDefaultValue(UserStatus.Active);
 
-            builder.Property(u => u.Role)
-                .HasColumnName("role")
-                .HasColumnType("nvarchar")
-                .HasMaxLength(30)
-                .HasConversion<string>()
-                .IsRequired(true)
-                .HasDefaultValue(Role.User);
+            //builder.Property(u => u.Role)
+            //    .HasColumnName("role")
+            //    .HasColumnType("nvarchar")
+            //    .HasMaxLength(30)
+            //    .HasConversion<string>()
+            //    .IsRequired(true)
+            //    .HasDefaultValue(Role.User);
         }
     }
 }

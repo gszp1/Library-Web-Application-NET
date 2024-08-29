@@ -1,4 +1,6 @@
-﻿namespace Library_Web_Application_NET.Server.src.data.context
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace Library_Web_Application_NET.Server.src.data.context
 {
     public class DbInitializer
     {

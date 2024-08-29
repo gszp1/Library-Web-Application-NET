@@ -15,8 +15,6 @@ namespace Library_Web_Application_NET.Server.src.model
 
         public UserStatus Status { get; set; }
 
-        public Role Role { get; set; }
-
         public List<Reservation> Reservations { get; set; } = [];
     }
 }
