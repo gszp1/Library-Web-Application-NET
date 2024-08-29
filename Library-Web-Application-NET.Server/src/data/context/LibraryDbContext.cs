@@ -1,4 +1,5 @@
-﻿using Library_Web_Application_NET.Server.src.data.config;
+﻿using Library_Web_Application_NET.Server.src.auth;
+using Library_Web_Application_NET.Server.src.data.config;
 using Library_Web_Application_NET.Server.src.model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library_Web_Application_NET.Server.src.data.context
 {
-    public class LibraryDbContext : IdentityDbContext<User, IdentityRole<int>, int>
+    public class LibraryDbContext : IdentityDbContext<User, UserRole, int>
     {
         // Tables
         public DbSet<Author> Authors { get; set; }
@@ -21,9 +22,6 @@ namespace Library_Web_Application_NET.Server.src.data.context
 
         public DbSet<ResourceInstance> ResourcesInstances { get; set; }
 
-        public DbSet<User> Users { get; set; }
-
-
         public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options)
         {
         }
@@ -31,6 +29,8 @@ namespace Library_Web_Application_NET.Server.src.data.context
         // Configuration
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             // Entity configuration
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new PublisherConifguration());

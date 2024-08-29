@@ -1,4 +1,5 @@
 
+using Library_Web_Application_NET.Server.src.auth;
 using Library_Web_Application_NET.Server.src.data.context;
 using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.repository;
@@ -83,7 +84,7 @@ namespace Library_Web_Application_NET.Server
             });
 
             // Identity
-            builder.Services.AddIdentity<User, IdentityRole>(options =>
+            builder.Services.AddIdentity<User, UserRole>(options =>
             {
                 options.Password.RequiredLength = 8;
                 options.Password.RequireUppercase = true;
