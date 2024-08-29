@@ -8,7 +8,6 @@ using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.service.interfaces;
 using Library_Web_Application_NET.Server.src.statistics;
 using Library_Web_Application_NET.Server.src.statistics.interfaces;
-using Library_Web_Application_NET.Server.src.util;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -90,17 +89,11 @@ namespace Library_Web_Application_NET.Server
                 options.Password.RequireUppercase = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireDigit = true;
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedAccount = true;
             })
             .AddEntityFrameworkStores<LibraryDbContext>()
             .AddDefaultTokenProviders();
-
-            // Authorization 
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("AdminPolicy", policy => policy.RequireRole(Role.Admin.ToString()));
-                options.AddPolicy("UserPolicy", policy => policy.RequireRole(Role.User.ToString()));
-            });
-
 
             // Cors Config
             builder.Services.AddCors(options =>
@@ -120,7 +113,7 @@ namespace Library_Web_Application_NET.Server
             using var scope = app.Services.CreateScope();
             var services = scope.ServiceProvider;
             var initialiser = services.GetRequiredService<DbInitializer>();
-            initialiser.Run();
+            initialiser.Run(services);
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
