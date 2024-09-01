@@ -78,6 +78,17 @@ namespace Library_Web_Application_NET.Server.src.data.context
                     a => a.HasOne<Author>().WithMany().HasForeignKey(a => a.AuthorId),
                     r => r.HasOne<Resource>().WithMany().HasForeignKey(r => r.ResourceId)
                 );
+            
+            List<UserRole> roles = [];
+            foreach (var roleName in Enum.GetNames(typeof(Role)))
+            {
+                new UserRole()
+                {
+                    Name = roleName,
+                    NormalizedName = roleName.ToUpper()
+                };
+            };
+            modelBuilder.Entity<UserRole>().HasData(roles);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Library_Web_Application_NET.Server.src.auth
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Library_Web_Application_NET.Server.src.auth
 {
     public class RegisterRequest
     {
@@ -8,8 +10,11 @@
 
         public string? PhoneNumber { get; set; }
 
-        public string? Email { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
 
-        public string? Password { get; set; }
+        [Required]
+        public string Password { get; set; }
     }
 }
