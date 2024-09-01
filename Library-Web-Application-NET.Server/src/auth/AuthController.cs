@@ -11,10 +11,13 @@ namespace Library_Web_Application_NET.Server.src.auth
     public class AuthController : ControllerBase
     {
 
+        private readonly ITokenService tokenService;
+
         private readonly UserManager<User> userManager;
 
-        public AuthController(UserManager<User> userManager) {
+        public AuthController(UserManager<User> userManager, ITokenService tokenSerivce) {
             this.userManager = userManager;
+            this.tokenService = tokenSerivce;
         }
 
         [HttpPost("register")]
@@ -35,12 +38,16 @@ namespace Library_Web_Application_NET.Server.src.auth
                     JoinDate = DateOnly.FromDateTime(DateTime.Now)
                 };
                 var createdUser = await userManager.CreateAsync(user, request.Password);
+
                 if (createdUser.Succeeded)
                 {
                     var roleResult = await userManager.AddToRoleAsync(user, "User");
                     if (roleResult.Succeeded)
                     {
-                        return Ok("Created user.");
+                        return Ok(new AuthenticationResponse()
+                        {
+                            Content = await tokenService.CreateToken(user)
+                        });
                     }
                     else
                     {

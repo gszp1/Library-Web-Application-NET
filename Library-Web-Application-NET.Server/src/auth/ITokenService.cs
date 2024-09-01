@@ -4,6 +4,6 @@ namespace Library_Web_Application_NET.Server.src.auth
 {
     public interface ITokenService
     {
-        string CreateToken(User user);
+        Task<string> CreateToken(User user);
     }
 }
