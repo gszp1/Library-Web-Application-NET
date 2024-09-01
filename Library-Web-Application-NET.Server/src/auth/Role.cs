@@ -10,11 +10,11 @@ namespace Library_Web_Application_NET.Server.src.auth
 
     static class RoleHandler
     {
-        public static List<Permission> GetPermissions(Role role)
+        public static List<Permission> GetPermissions(string role)
         {
             switch (role)
             {
-                case Role.User:
+                case "User":
                     return
                     [
                         Permission.User_Create,
@@ -22,7 +22,7 @@ namespace Library_Web_Application_NET.Server.src.auth
                         Permission.User_Delete,
                         Permission.User_Read
                     ];
-                case Role.Admin:
+                case "Admin":
                     return
                     [
                         Permission.Admin_Create,

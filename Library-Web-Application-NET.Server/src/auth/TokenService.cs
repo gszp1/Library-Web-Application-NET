@@ -20,7 +20,7 @@ namespace Library_Web_Application_NET.Server.src.auth
 
         public string CreateToken(User user)
         {
-            var claims
+            throw new NotImplementedException();
         }
     }
 }

@@ -79,16 +79,39 @@ namespace Library_Web_Application_NET.Server.src.data.context
                     r => r.HasOne<Resource>().WithMany().HasForeignKey(r => r.ResourceId)
                 );
             
+            
             List<UserRole> roles = [];
+            int counter = 1;
             foreach (var roleName in Enum.GetNames(typeof(Role)))
             {
-                new UserRole()
+                roles.Add(new UserRole()
                 {
+                    Id = counter++,
                     Name = roleName,
                     NormalizedName = roleName.ToUpper()
-                };
+                });
             };
+
+            var roleClaims = new List<IdentityRoleClaim<int>>();
+
+            int claimCounter = 1;
+            foreach (var role in roles)
+            {
+                var permissions = RoleHandler.GetPermissions(role.Name);
+                foreach (var permission in permissions)
+                {
+                    roleClaims.Add(new IdentityRoleClaim<int>()
+                    {
+                        Id = claimCounter++,
+                        RoleId = role.Id,
+                        ClaimType = "Permission",
+                        ClaimValue = permission.ToString()
+                    });
+                }
+            }
+
             modelBuilder.Entity<UserRole>().HasData(roles);
+            modelBuilder.Entity<IdentityRoleClaim<int>>().HasData(roleClaims);
         }
     }
 }
