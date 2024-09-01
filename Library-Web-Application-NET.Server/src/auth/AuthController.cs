@@ -15,6 +15,8 @@ namespace Library_Web_Application_NET.Server.src.auth
 
         private readonly UserManager<User> userManager;
 
+        
+
         public AuthController(UserManager<User> userManager, ITokenService tokenSerivce) {
             this.userManager = userManager;
             this.tokenService = tokenSerivce;
@@ -64,5 +66,11 @@ namespace Library_Web_Application_NET.Server.src.auth
                 return StatusCode(500, "Internal error occurred during user creation.");
             }
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginRequest loginRequest)
+        {
+
+        } 
     }
 }
