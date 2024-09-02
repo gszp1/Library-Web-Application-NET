@@ -60,7 +60,7 @@ namespace Library_Web_Application_NET.Server
             // Contollers
             builder.Services.AddControllers();
 
-            // JWT Config
+            // JWT Config and Authentication
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme =
@@ -82,6 +82,19 @@ namespace Library_Web_Application_NET.Server
                     ValidAudience = builder.Configuration["Jwt:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                 };
+            });
+
+            // Authorization
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminCreate", policy => policy.RequireClaim("Permission", Permission.Admin_Create.ToString()));
+                options.AddPolicy("AdminRead", policy => policy.RequireClaim("Permission", Permission.Admin_Read.ToString()));
+                options.AddPolicy("AdminUpdate", policy => policy.RequireClaim("Permission", Permission.Admin_Update.ToString()));
+                options.AddPolicy("AdminDelete", policy => policy.RequireClaim("Permission", Permission.Admin_Delete.ToString()));
+                options.AddPolicy("UserCreate", policy => policy.RequireClaim("Permission", Permission.User_Create.ToString()));
+                options.AddPolicy("UserRead", policy => policy.RequireClaim("Permission", Permission.User_Read.ToString()));
+                options.AddPolicy("UserUpdate", policy => policy.RequireClaim("Permission", Permission.User_Update.ToString()));
+                options.AddPolicy("UserDelete", policy => policy.RequireClaim("Permission", Permission.User_Delete.ToString()));
             });
 
             // Identity
