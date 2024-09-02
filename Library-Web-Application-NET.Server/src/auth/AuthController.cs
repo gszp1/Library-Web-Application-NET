@@ -18,10 +18,19 @@ namespace Library_Web_Application_NET.Server.src.auth
 
         private readonly SignInManager<User> signInManager;
 
-        public AuthController(UserManager<User> userManager, ITokenService tokenSerivce, SignInManager<User> signInManager) {
+        private readonly IAuthService authService;
+
+        public AuthController
+        (
+            UserManager<User> userManager,
+            ITokenService tokenSerivce,
+            SignInManager<User> signInManager,
+            IAuthService authService
+        ) {
             this.userManager = userManager;
             this.tokenService = tokenSerivce;
             this.signInManager = signInManager;
+            this.authService = authService;
         }
 
         [HttpPost("register")]
@@ -33,40 +42,7 @@ namespace Library_Web_Application_NET.Server.src.auth
                 {
                     return BadRequest(ModelState);
                 }
-                var user = new User
-                {
-                    UserName = request.Email,
-                    Email = request.Email,
-                    Name = request.Name.IsNullOrEmpty() ? null : request.Name,
-                    Surname = request.Surname.IsNullOrEmpty() ? null : request.Surname,
-                    JoinDate = DateOnly.FromDateTime(DateTime.Now)
-                };
-                var createdUser = await userManager.CreateAsync(user, request.Password);
 
-                if (createdUser.Succeeded)
-                {
-                    var roleResult = await userManager.AddToRoleAsync(user, "User");
-                    if (roleResult.Succeeded)
-                    {
-                        return Ok(new AuthenticationResponse()
-                        {
-                            Content = await tokenService.CreateToken(user)
-                        });
-                    }
-                    else
-                    {
-                        return StatusCode(500, "Internal error occurred during user creation.");
-                    }
-                }
-                else
-                {
-                    return StatusCode(500, "Internal error occurred during user creation.");
-                }
-            }
-            catch (Exception e) 
-            {
-                return StatusCode(500, "Internal error occurred during user creation.");
-            }
         }
 
         [HttpPost("authenticate")]
