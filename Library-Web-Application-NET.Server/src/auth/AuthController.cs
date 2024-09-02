@@ -60,7 +60,7 @@ namespace Library_Web_Application_NET.Server.src.auth
                 {
                     return StatusCode(401, "Bad credentials.");
                 }
-                return Ok(await Login(loginRequest));
+                return Ok(await authService.Login(loginRequest));
             }
             catch (Exception)
             {

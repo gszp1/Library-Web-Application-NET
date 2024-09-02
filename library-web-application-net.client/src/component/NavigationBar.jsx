@@ -46,13 +46,13 @@ function NavigationBar({searchKeyword, setSearchKeyword, openLoginWindow}) {
               {" Login"}
             </p>
           ) : (
-            getRole(localStorage.getItem('WebLibToken')) === 'USER' ? (
+            getRole(localStorage.getItem('WebLibToken')) === 'User' ? (
               <Link to="/account">
                 <FontAwesomeIcon icon={faUser} className='icon'/>
                 {" Account"}
               </Link>
             ) : (
-              getRole(localStorage.getItem('WebLibToken')) === 'ADMIN' ? (
+              getRole(localStorage.getItem('WebLibToken')) === 'Admin' ? (
                 <Link to="/adminPanel">
                   <FontAwesomeIcon icon={faUser} className='icon'/>
                   {" Admin"}
