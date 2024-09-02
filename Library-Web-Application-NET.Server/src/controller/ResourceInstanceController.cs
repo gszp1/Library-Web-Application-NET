@@ -2,6 +2,7 @@
 using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.service.interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library_Web_Application_NET.Server.src.controller
@@ -17,13 +18,14 @@ namespace Library_Web_Application_NET.Server.src.controller
             this.resourceInstanceService = resourceInstanceService;
         }
 
-
+        [Authorize(Policy = "AdminRead")]
         [HttpGet("all/resource/{id}")]
         public async Task<ActionResult<List<AdminInstanceDto>>> GetAllForResource(int id)
         {
             return Ok(await resourceInstanceService.GetAllAdminInstancesByResourceIdAsync(id, "InstanceId", true));
         }
 
+        [Authorize(Policy = "AdminUpdate")]
         [HttpGet("update")]
         public async Task<ActionResult<string>> UpdateInstance([FromBody] AdminInstanceDto dto)
         {
@@ -42,6 +44,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "AdminUpdate")]
         [HttpPut("{id}/withdraw")]
         public async Task<ActionResult<string>> WithdrawInstance(int id)
         {
@@ -60,6 +63,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "AdminCreate")]
         [HttpPost("create/{id}")]
         public async Task<ActionResult<string>> CreateInstance(int id)
         {
