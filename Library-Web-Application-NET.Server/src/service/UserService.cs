@@ -3,12 +3,19 @@ using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.repository.interfaces;
 using Library_Web_Application_NET.Server.src.service.interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace Library_Web_Application_NET.Server.src.service
 {
     public class UserService : GenericService<User>, IUserService
     {
-        public UserService(IUnitOfWork unitOfWork) : base(unitOfWork) {}
+
+        private readonly UserManager<User> userManager;
+
+        public UserService(IUnitOfWork unitOfWork, UserManager<User> userManager) : base(unitOfWork)
+        {
+            this.userManager = userManager;
+        }
 
         public async Task<UserDto> GetUserCredentialsAsync(string email)
         {
