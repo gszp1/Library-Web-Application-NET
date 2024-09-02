@@ -35,9 +35,11 @@ namespace Library_Web_Application_NET.Server.src.auth
             {
                 var user = await userManager.Users.FirstOrDefaultAsync(u => u.Email.Equals(request.Email))
                     ?? throw new NoSuchRecordException("Given user does not exist.");
+                Console.WriteLine("Passed user exists");
                 var result = await signInManager.CheckPasswordSignInAsync(user, request.Password, false);
                 if (!result.Succeeded)
                 {
+                    Console.WriteLine("password error.");
                     throw new InvalidCredentialsException();
                 }
                 return new AuthenticationResponse()
@@ -45,8 +47,10 @@ namespace Library_Web_Application_NET.Server.src.auth
                     Content = await tokenService.CreateToken(user)
                 };
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine("ex1");
+                Console.WriteLine(e.StackTrace);
                 throw;
             }
         }
