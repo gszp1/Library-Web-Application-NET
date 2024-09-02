@@ -40,8 +40,14 @@ namespace Library_Web_Application_NET.Server.src.auth
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(ModelState);
+                    return BadRequest(new AuthenticationResponse() { Content = "User already exists" });
                 }
+                return Ok(await authService.Register(request));
+            } 
+            catch (Exception)
+            {
+                return BadRequest(new AuthenticationResponse() { Content = "User already exists"});
+            }
 
         }
 
@@ -54,25 +60,11 @@ namespace Library_Web_Application_NET.Server.src.auth
                 {
                     return StatusCode(401, "Bad credentials.");
                 }
-                var user = await userManager.Users.FirstOrDefaultAsync(u => u.Email.Equals(loginRequest.Email));
-                if (user == null)
-                {
-                    return StatusCode(401, "Bad credentials.");
-                }
-
-                var result = await signInManager.CheckPasswordSignInAsync(user, loginRequest.Password, false);
-                if (!result.Succeeded)
-                {
-                    return StatusCode(401, "Bad credentials.");
-                }
-                return Ok(new AuthenticationResponse()
-                {
-                    Content = await tokenService.CreateToken(user)
-                });
+                return Ok(Login(loginRequest));
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return StatusCode(500, "Internal error occurred during user creation.");
+                return StatusCode(401, "Bad credentials.");
             }
         } 
     }

@@ -32,7 +32,7 @@ namespace Library_Web_Application_NET.Server.src.auth
             try
             {
                 var user = await userManager.Users.FirstOrDefaultAsync(u => u.Email.Equals(request.Email))
-                    ?? throw new NoSuchRecordException("");
+                    ?? throw new NoSuchRecordException("Given user does not exist.");
                 var result = await signInManager.CheckPasswordSignInAsync(user, request.Password, false);
                 if (!result.Succeeded)
                 {
