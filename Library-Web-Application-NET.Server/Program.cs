@@ -55,6 +55,7 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IStatisticsService, StatisticsService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
             // Contollers
             builder.Services.AddControllers();
