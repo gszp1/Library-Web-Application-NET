@@ -1,5 +1,6 @@
 ﻿using Library_Web_Application_NET.Server.src.auth;
 using Library_Web_Application_NET.Server.src.data.context;
+using Library_Web_Application_NET.Server.src.dto;
 using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.repository.interfaces;
 using Library_Web_Application_NET.Server.src.statistics;
@@ -72,6 +73,24 @@ namespace Library_Web_Application_NET.Server.src.repository
                 .GroupBy(u => u.JoinDate.Month)
                 .Select(u => new MonthCount() { Month = u.Key, Count = u.Count() })
                 .OrderByDescending(m => m.Month)
+                .ToListAsync();
+        }
+
+        public async Task<List<UserWithRole>> FindUsersAndRolesByEmailKeywordAsync(string keyword)
+        {
+            return await (from user in context.Users
+                          where user.Email.Contains(keyword, StringComparison.OrdinalIgnoreCase)
+                          join userRole in context.UserRoles on user.Id equals userRole.UserId
+                          join role in context.Roles on userRole.RoleId equals role.Id
+                          select new UserWithRole { User = user, RoleName = role.Name}
+                          ).ToListAsync();
+        }
+
+        public async Task<List<UserWithRole>> FindAllUsersWithRolesAsync()
+        {
+            return await context.Users
+                .SelectMany(u => context.UserRoles.Where(ur => ur.UserId == u.Id)
+                    .Join(context.Roles, ur => ur.RoleId, r => r.Id, (ur, r) => new UserWithRole{ User = u, RoleName = r.Name }))
                 .ToListAsync();
         }
     }

@@ -1,9 +1,13 @@
-﻿using Library_Web_Application_NET.Server.src.dto;
+﻿using Library_Web_Application_NET.Server.src.auth;
+using Library_Web_Application_NET.Server.src.dto;
 using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.model;
+using Library_Web_Application_NET.Server.src.repository;
 using Library_Web_Application_NET.Server.src.repository.interfaces;
 using Library_Web_Application_NET.Server.src.service.interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Library_Web_Application_NET.Server.src.service
 {
@@ -93,36 +97,38 @@ namespace Library_Web_Application_NET.Server.src.service
 
         public async Task<List<AdminUserDto>> FindAllByEmailKeywordAsync(string keyword)
         {
-            List<User> users = await unitOfWork.Users.FindByEmailKeywordAsync(keyword);
-            return users.Select(u => new AdminUserDto
+            var usersWithRoles = await unitOfWork.Users.FindUsersAndRolesByEmailKeywordAsync(keyword);
+
+            var userDtos = usersWithRoles.Select(u => new AdminUserDto
             {
-                Id = u.Id,
-                Name = u.Name,
-                Surname = u.Surname,
-                PhoneNumber = u.PhoneNumber,
-                JoinDate = u.JoinDate,
-                Email = u.Email,
-                ImageUrl = u.ImageUrl,
-                Status = u.Status,
-                //Role = u.Role
-            })
-            .ToList();
+                Id = u.User.Id,
+                Name = u.User.Name,
+                Surname = u.User.Surname,
+                PhoneNumber = u.User.PhoneNumber,
+                JoinDate = u.User.JoinDate,
+                Email = u.User.Email,
+                ImageUrl = u.User.ImageUrl,
+                Status = u.User.Status,
+                Role = (Role)Enum.Parse(typeof(Role), u.RoleName)
+            }).ToList();
+
+            return userDtos;
         }
 
         public async Task<List<AdminUserDto>> FindAllAsync()
         {
-            List<User> users = await unitOfWork.Users.FindAllAsync();
+            var users = await unitOfWork.Users.FindAllUsersWithRolesAsync();
             return users.Select(u => new AdminUserDto
             {
-                Id = u.Id,
-                Name = u.Name,
-                Surname = u.Surname,
-                PhoneNumber = u.PhoneNumber,
-                JoinDate = u.JoinDate,
-                Email = u.Email,
-                ImageUrl = u.ImageUrl,
-                Status = u.Status,
-                //Role = u.Role
+                Id = u.User.Id,
+                Name = u.User.Name,
+                Surname = u.User.Surname,
+                PhoneNumber = u.User.PhoneNumber,
+                JoinDate = u.User.JoinDate,
+                Email = u.User.Email,
+                ImageUrl = u.User.ImageUrl,
+                Status = u.User.Status,
+                Role = (Role)Enum.Parse(typeof(Role), u.RoleName)
             })
             .ToList();
         }
@@ -133,6 +139,11 @@ namespace Library_Web_Application_NET.Server.src.service
                 .Users
                 .FindByUserIdAsync(id)
                 ?? throw new NoSuchRecordException("User with given id does not exist.");
+            var role = await (from ur in unitOfWork.Context.UserRoles
+                              join r in unitOfWork.Context.Roles on ur.RoleId equals r.Id
+                              where ur.RoleId == id
+                              select r.Name).FirstOrDefaultAsync();
+
             return new AdminUserDto
             {
                 Id = user.Id,
@@ -143,7 +154,7 @@ namespace Library_Web_Application_NET.Server.src.service
                 Email = user.Email,
                 ImageUrl = user.ImageUrl,
                 Status = user.Status,
-                //Role = user.Role
+                Role = (Role)Enum.Parse(typeof(Role), role)
             };
         }
 
@@ -153,12 +164,28 @@ namespace Library_Web_Application_NET.Server.src.service
                  .Users
                  .FindByEmailAsync(dto.Email)
                  ?? throw new NoSuchRecordException("User with given Email does not exist.");
+
+            string? oldRoleString = await unitOfWork.Context.UserRoles
+                .Where(ur => ur.UserId == user.Id)
+                .Join(unitOfWork.Context.Roles, ur => ur.RoleId, r => r.Id, (ur, r) => r.Name)
+                .FirstOrDefaultAsync();
+            var oldStatus = user.Status;
+
+            Role oldRole = (Role)Enum.Parse(typeof(Role), oldRoleString);
+
+
             UpdateUserWithDto(user, dto);
+            
+            if (dto.Role != oldRole)
+            {
+                await UpdateUserRoleAsync(user.Id, dto.Role.ToString());
+            }
+            
             unitOfWork.Users.Update(user);
-            //if (user.Status != dto.Status || user.Role != dto.Role)
-            //{
-            //    await CancelAllActiveUserReservationsAsync(user.Email);
-            //}
+            if (user.Status != dto.Status || dto.Role != oldRole)
+            {
+                await CancelAllActiveUserReservationsAsync(user.Email);
+            }
             if (await unitOfWork.CompleteAsync() < 1)
             {
                 throw new OperationFailedException("Failed to persist changes.");
@@ -197,7 +224,25 @@ namespace Library_Web_Application_NET.Server.src.service
             user.Email = dto.Email;
             user.ImageUrl = dto.ImageUrl;
             user.Status = dto.Status;
-            //user.Role = dto.Role;
+        }
+
+        private async Task UpdateUserRoleAsync(int userId, string newRoleName)
+        {
+            var role = await unitOfWork.Context.Roles.FirstOrDefaultAsync(r => r.Name.Equals(newRoleName));
+            if (role == null)
+            {
+                throw new NoSuchRecordException("Role does not exist.");
+            }
+
+            var userRole = await unitOfWork.Context.UserRoles.FirstOrDefaultAsync(ur => ur.UserId == userId);
+            if (userRole != null)
+            {
+                userRole.RoleId = role.Id;
+            }
+            else
+            {
+                unitOfWork.Context.UserRoles.Add(new IdentityUserRole<int> { UserId = userId, RoleId = role.Id });
+            }
         }
     }
 }
