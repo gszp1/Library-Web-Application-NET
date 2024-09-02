@@ -1,12 +1,18 @@
 
+using Library_Web_Application_NET.Server.src.auth;
 using Library_Web_Application_NET.Server.src.data.context;
+using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.repository;
 using Library_Web_Application_NET.Server.src.repository.interfaces;
 using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.service.interfaces;
 using Library_Web_Application_NET.Server.src.statistics;
 using Library_Web_Application_NET.Server.src.statistics.interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Library_Web_Application_NET.Server
 {
@@ -48,13 +54,49 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddScoped<IResourceService, ResourceService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IStatisticsService, StatisticsService>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
 
             // Contollers
             builder.Services.AddControllers();
 
+            // JWT Config
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme =
+                options.DefaultChallengeScheme =
+                options.DefaultForbidScheme =
+                options.DefaultScheme =
+                options.DefaultSignInScheme =
+                options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                    ValidAudience = builder.Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                };
+            });
+
+            // Identity
+            builder.Services.AddIdentity<User, UserRole>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireDigit = true;
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedAccount = true;
+            })
+            .AddEntityFrameworkStores<LibraryDbContext>()
+            .AddDefaultTokenProviders();
 
             // Cors Config
-
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -72,7 +114,7 @@ namespace Library_Web_Application_NET.Server
             using var scope = app.Services.CreateScope();
             var services = scope.ServiceProvider;
             var initialiser = services.GetRequiredService<DbInitializer>();
-            initialiser.Run();
+            initialiser.Run(services);
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -84,6 +126,7 @@ namespace Library_Web_Application_NET.Server
                 app.UseSwaggerUI();
             }
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

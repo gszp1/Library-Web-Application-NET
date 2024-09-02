@@ -1,10 +1,13 @@
-﻿using Library_Web_Application_NET.Server.src.data.config;
+﻿using Library_Web_Application_NET.Server.src.auth;
+using Library_Web_Application_NET.Server.src.data.config;
 using Library_Web_Application_NET.Server.src.model;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library_Web_Application_NET.Server.src.data.context
 {
-    public class LibraryDbContext : DbContext
+    public class LibraryDbContext : IdentityDbContext<User, UserRole, int>
     {
         // Tables
         public DbSet<Author> Authors { get; set; }
@@ -19,9 +22,6 @@ namespace Library_Web_Application_NET.Server.src.data.context
 
         public DbSet<ResourceInstance> ResourcesInstances { get; set; }
 
-        public DbSet<User> Users { get; set; }
-
-
         public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options)
         {
         }
@@ -29,6 +29,8 @@ namespace Library_Web_Application_NET.Server.src.data.context
         // Configuration
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             // Entity configuration
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new PublisherConifguration());
@@ -76,6 +78,40 @@ namespace Library_Web_Application_NET.Server.src.data.context
                     a => a.HasOne<Author>().WithMany().HasForeignKey(a => a.AuthorId),
                     r => r.HasOne<Resource>().WithMany().HasForeignKey(r => r.ResourceId)
                 );
+            
+            
+            List<UserRole> roles = [];
+            int counter = 1;
+            foreach (var roleName in Enum.GetNames(typeof(Role)))
+            {
+                roles.Add(new UserRole()
+                {
+                    Id = counter++,
+                    Name = roleName,
+                    NormalizedName = roleName.ToUpper()
+                });
+            };
+
+            var roleClaims = new List<IdentityRoleClaim<int>>();
+
+            int claimCounter = 1;
+            foreach (var role in roles)
+            {
+                var permissions = RoleHandler.GetPermissions(role.Name);
+                foreach (var permission in permissions)
+                {
+                    roleClaims.Add(new IdentityRoleClaim<int>()
+                    {
+                        Id = claimCounter++,
+                        RoleId = role.Id,
+                        ClaimType = "Permission",
+                        ClaimValue = permission.ToString()
+                    });
+                }
+            }
+
+            modelBuilder.Entity<UserRole>().HasData(roles);
+            modelBuilder.Entity<IdentityRoleClaim<int>>().HasData(roleClaims);
         }
     }
 }

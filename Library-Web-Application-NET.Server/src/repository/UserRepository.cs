@@ -33,7 +33,7 @@ namespace Library_Web_Application_NET.Server.src.repository
         {
             return await context
                 .Users
-                .Where(u => u.Role == Role.User)
+                //.Where(u => u.Role == Role.User)
                 .CountAsync();
         }
 
@@ -41,7 +41,7 @@ namespace Library_Web_Application_NET.Server.src.repository
         {
             return await context
                 .Users
-                .Where(u => u.Role == Role.User && u.JoinDate.Month == month)
+                //.Where(u => u.Role == Role.User && u.JoinDate.Month == month)
                 .CountAsync();
         }
 

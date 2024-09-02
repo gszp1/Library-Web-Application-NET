@@ -89,7 +89,7 @@ namespace Library_Web_Application_NET.Server.src.service
             List<User> users = await unitOfWork.Users.FindByEmailKeywordAsync(keyword);
             return users.Select(u => new AdminUserDto
             {
-                Id = u.UserId,
+                Id = u.Id,
                 Name = u.Name,
                 Surname = u.Surname,
                 PhoneNumber = u.PhoneNumber,
@@ -97,7 +97,7 @@ namespace Library_Web_Application_NET.Server.src.service
                 Email = u.Email,
                 ImageUrl = u.ImageUrl,
                 Status = u.Status,
-                Role = u.Role
+                //Role = u.Role
             })
             .ToList();
         }
@@ -107,7 +107,7 @@ namespace Library_Web_Application_NET.Server.src.service
             List<User> users = await unitOfWork.Users.FindAllAsync();
             return users.Select(u => new AdminUserDto
             {
-                Id = u.UserId,
+                Id = u.Id,
                 Name = u.Name,
                 Surname = u.Surname,
                 PhoneNumber = u.PhoneNumber,
@@ -115,7 +115,7 @@ namespace Library_Web_Application_NET.Server.src.service
                 Email = u.Email,
                 ImageUrl = u.ImageUrl,
                 Status = u.Status,
-                Role = u.Role
+                //Role = u.Role
             })
             .ToList();
         }
@@ -128,7 +128,7 @@ namespace Library_Web_Application_NET.Server.src.service
                 ?? throw new NoSuchRecordException("User with given id does not exist.");
             return new AdminUserDto
             {
-                Id = user.UserId,
+                Id = user.Id,
                 Name = user.Name,
                 Surname = user.Surname,
                 PhoneNumber = user.PhoneNumber,
@@ -136,7 +136,7 @@ namespace Library_Web_Application_NET.Server.src.service
                 Email = user.Email,
                 ImageUrl = user.ImageUrl,
                 Status = user.Status,
-                Role = user.Role
+                //Role = user.Role
             };
         }
 
@@ -148,10 +148,10 @@ namespace Library_Web_Application_NET.Server.src.service
                  ?? throw new NoSuchRecordException("User with given Email does not exist.");
             UpdateUserWithDto(user, dto);
             unitOfWork.Users.Update(user);
-            if (user.Status != dto.Status || user.Role != dto.Role)
-            {
-                await CancelAllActiveUserReservationsAsync(user.Email);
-            }
+            //if (user.Status != dto.Status || user.Role != dto.Role)
+            //{
+            //    await CancelAllActiveUserReservationsAsync(user.Email);
+            //}
             if (await unitOfWork.CompleteAsync() < 1)
             {
                 throw new OperationFailedException("Failed to persist changes.");
@@ -190,7 +190,7 @@ namespace Library_Web_Application_NET.Server.src.service
             user.Email = dto.Email;
             user.ImageUrl = dto.ImageUrl;
             user.Status = dto.Status;
-            user.Role = dto.Role;
+            //user.Role = dto.Role;
         }
     }
 }

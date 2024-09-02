@@ -12,9 +12,9 @@ namespace Library_Web_Application_NET.Server.src.data.config
         {
             builder.ToTable("users");
 
-            builder.HasKey(u => u.UserId);
+            builder.HasKey(u => u.Id);
 
-            builder.Property(u => u.UserId)
+            builder.Property(u => u.Id)
                 .HasColumnName("user_id")
                 .HasColumnType("int")
                 .ValueGeneratedOnAdd();
@@ -46,11 +46,6 @@ namespace Library_Web_Application_NET.Server.src.data.config
                 .HasMaxLength(12)
                 .IsRequired(false);
 
-            builder.Property(u => u.Password)
-                .HasColumnName("password")
-                .HasColumnType("nvarchar")
-                .IsRequired(true);
-
             builder.Property(u => u.ImageUrl)
                 .HasColumnName("image_url")
                 .HasColumnType("nvarchar")
@@ -70,13 +65,13 @@ namespace Library_Web_Application_NET.Server.src.data.config
                 .IsRequired(true)
                 .HasDefaultValue(UserStatus.Active);
 
-            builder.Property(u => u.Role)
-                .HasColumnName("role")
-                .HasColumnType("nvarchar")
-                .HasMaxLength(30)
-                .HasConversion<string>()
-                .IsRequired(true)
-                .HasDefaultValue(Role.User);
+            //builder.Property(u => u.Role)
+            //    .HasColumnName("role")
+            //    .HasColumnType("nvarchar")
+            //    .HasMaxLength(30)
+            //    .HasConversion<string>()
+            //    .IsRequired(true)
+            //    .HasDefaultValue(Role.User);
         }
     }
 }
