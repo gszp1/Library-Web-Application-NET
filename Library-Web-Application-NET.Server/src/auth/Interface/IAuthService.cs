@@ -1,4 +1,6 @@
-﻿namespace Library_Web_Application_NET.Server.src.auth
+﻿using Library_Web_Application_NET.Server.src.auth.data;
+
+namespace Library_Web_Application_NET.Server.src.auth.Interface
 {
     public interface IAuthService
     {

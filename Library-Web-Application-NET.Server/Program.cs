@@ -1,5 +1,7 @@
 
 using Library_Web_Application_NET.Server.src.auth;
+using Library_Web_Application_NET.Server.src.auth.data;
+using Library_Web_Application_NET.Server.src.auth.Interface;
 using Library_Web_Application_NET.Server.src.data.context;
 using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.repository;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Library_Web_Application_NET.Server.src.auth
+namespace Library_Web_Application_NET.Server.src.auth.data
 {
     public class RegisterRequest
     {

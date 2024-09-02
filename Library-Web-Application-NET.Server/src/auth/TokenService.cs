@@ -1,4 +1,6 @@
-﻿using Library_Web_Application_NET.Server.src.model;
+﻿using Library_Web_Application_NET.Server.src.auth.data;
+using Library_Web_Application_NET.Server.src.auth.Interface;
+using Library_Web_Application_NET.Server.src.model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

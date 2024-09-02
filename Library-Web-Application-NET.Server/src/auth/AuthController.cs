@@ -1,9 +1,9 @@
-﻿using Library_Web_Application_NET.Server.src.model;
+﻿using Library_Web_Application_NET.Server.src.auth.data;
+using Library_Web_Application_NET.Server.src.auth.Interface;
+using Library_Web_Application_NET.Server.src.model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Library_Web_Application_NET.Server.src.auth
 {
@@ -34,7 +34,7 @@ namespace Library_Web_Application_NET.Server.src.auth
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        public async Task<IActionResult> Register([FromBody] data.RegisterRequest request)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace Library_Web_Application_NET.Server.src.auth
         }
 
         [HttpPost("authenticate")]
-        public async Task<IActionResult> Login(LoginRequest loginRequest)
+        public async Task<IActionResult> Login(data.LoginRequest loginRequest)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace Library_Web_Application_NET.Server.src.auth
                 {
                     return StatusCode(401, "Bad credentials.");
                 }
-                return Ok(Login(loginRequest));
+                return Ok(await Login(loginRequest));
             }
             catch (Exception)
             {

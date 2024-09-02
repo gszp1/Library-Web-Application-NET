@@ -1,4 +1,4 @@
-﻿using Library_Web_Application_NET.Server.src.auth;
+﻿using Library_Web_Application_NET.Server.src.auth.data;
 using Library_Web_Application_NET.Server.src.util;
 
 namespace Library_Web_Application_NET.Server.src.dto
