@@ -1,6 +1,7 @@
 ﻿using Library_Web_Application_NET.Server.src.dto;
 using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.service.interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library_Web_Application_NET.Server.src.controller
@@ -16,6 +17,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             this.authorService = authorService;
         }
 
+        [Authorize(Policy = "AdminCreate")]
         [HttpPost("create")]
         public async Task<ActionResult<string>> CreateAuthor([FromBody] AdminAuthorDto dto)
         {
@@ -30,12 +32,14 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "AdminRead")]
         [HttpGet("all")]
         public async Task<ActionResult<List<FullAuthorDto>>> GetAllAuthors()
         {
             return Ok(await authorService.GetAllAuthorsAsync());
         }
 
+        [Authorize(Policy = "AdminUpdate")]
         [HttpPut("update")]
         public async Task<ActionResult<string>> UpdateAuthor([FromBody] FullAuthorDto dto)
         {
