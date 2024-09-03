@@ -73,18 +73,19 @@ namespace Library_Web_Application_NET.Server.src.service
                 throw new NoSuchRecordException("Publisher with given id does not exist.");
             }
             Publisher? namePublisher = await unitOfWork.Publishers.FindByNameAsync(dto.Name);
-            if (namePublisher != null)
+            if (namePublisher != null && namePublisher.PublisherId != publisherId)
             {
                 throw new OperationNotAvailableException("Publisher with given name already exists.");
             }
+
             Publisher? addressPublisher = await unitOfWork.Publishers.FindByAddressAsync(dto.Address);
-            if (addressPublisher != null)
+            if (addressPublisher != null && addressPublisher.PublisherId != publisherId)
             {
                 throw new OperationNotAvailableException("Publisher with given address already exists.");
             }
             publisher.Address = dto.Address;
             publisher.Name = dto.Name;
-            await unitOfWork.Publishers.SaveAsync(publisher);
+            unitOfWork.Publishers.Update(publisher);
             if (await unitOfWork.CompleteAsync() < 1)
             {
                 throw new OperationFailedException("Failed to persist publisher update to database.");
