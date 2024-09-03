@@ -65,7 +65,10 @@ namespace Library_Web_Application_NET.Server.src.auth
                     Email = request.Email,
                     Name = request.Name.IsNullOrEmpty() ? null : request.Name,
                     Surname = request.Surname.IsNullOrEmpty() ? null : request.Surname,
-                    JoinDate = DateOnly.FromDateTime(DateTime.Now)
+                    JoinDate = DateOnly.FromDateTime(DateTime.Now),
+                    PhoneNumberConfirmed = true,
+                    LockoutEnabled = false,
+                    EmailConfirmed = true
                 };
                 var createdUser = await userManager.CreateAsync(user, request.Password);
 
