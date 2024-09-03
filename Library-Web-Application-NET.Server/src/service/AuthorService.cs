@@ -74,7 +74,7 @@ namespace Library_Web_Application_NET.Server.src.service
                 throw new InvalidRequestDataException("Invalid email address.");
             }
             Author? emailAuthor = await unitOfWork.Authors.FindByEmailAsync(dto.Email);
-            if (emailAuthor != null)
+            if (emailAuthor != null && emailAuthor.AuthorId != dto.AuthorId)
             {
                 throw new OperationNotAvailableException("Author with given email already exists.");
             }

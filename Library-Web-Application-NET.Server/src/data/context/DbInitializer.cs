@@ -17,7 +17,6 @@ namespace Library_Web_Application_NET.Server.src.data.context
 
         public void Run(IServiceProvider serviceProvider)
         {
-            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
         }
 
