@@ -28,8 +28,8 @@ namespace Library_Web_Application_NET.Server
 
             // Add services to the container.
 
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            //builder.Services.AddEndpointsApiExplorer();
+            //builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<LibraryDbContext>(options =>
              options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryDb")));
