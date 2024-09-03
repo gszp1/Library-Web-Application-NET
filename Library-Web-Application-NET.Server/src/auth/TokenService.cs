@@ -21,8 +21,6 @@ namespace Library_Web_Application_NET.Server.src.auth
 
         private readonly RoleManager<UserRole> roleManager;
 
-        // we need to add additional claim named Role 
-
         public TokenService(IConfiguration configuration, UserManager<User> userManager, RoleManager<UserRole> roleManager)
         {
             this.configuration = configuration;
@@ -40,6 +38,7 @@ namespace Library_Web_Application_NET.Server.src.auth
                 var claims = await roleManager.GetClaimsAsync(await roleManager.FindByNameAsync(role));
                 roleClaims.AddRange(claims);
                 roleClaims.Add(new Claim("Role", role));
+                roleClaims.Add(new Claim("sub", user.Email));
             }
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);

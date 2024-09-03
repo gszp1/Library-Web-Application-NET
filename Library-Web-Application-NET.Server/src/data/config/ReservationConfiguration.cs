@@ -26,7 +26,7 @@ namespace Library_Web_Application_NET.Server.src.data.config
             builder.Property(r => r.ReservationEnd)
                 .HasColumnName("reservation_end")
                 .HasColumnType("date")
-                .IsRequired(true);
+                .IsRequired(false);
 
             builder.Property(r => r.Status)
                 .HasColumnName("status")
