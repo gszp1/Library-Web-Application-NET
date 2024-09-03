@@ -2,6 +2,7 @@
 using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.service.interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace Library_Web_Application_NET.Server.src.controller
 {
     [Route("api/publishers")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PublisherController : ControllerBase
     {
         private readonly IPublisherService publisherService;

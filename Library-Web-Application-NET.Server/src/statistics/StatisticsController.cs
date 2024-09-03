@@ -1,4 +1,5 @@
 ﻿using Library_Web_Application_NET.Server.src.statistics.interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ namespace Library_Web_Application_NET.Server.src.statistics
 
     [Route("api/statistics")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class StatisticsController : ControllerBase
     {
         private readonly IStatisticsService statisticsService;
@@ -18,7 +20,8 @@ namespace Library_Web_Application_NET.Server.src.statistics
         }
 
         [Authorize(Policy = "AdminRead")]
-        [HttpGet("users")]
+        [HttpGet]
+        [Route("users")]
         public async Task<ActionResult<UserStatisticsDto>> GetUserStatistics() 
         {
             var res = await statisticsService.GetUserStatisticsAsync();
@@ -26,27 +29,31 @@ namespace Library_Web_Application_NET.Server.src.statistics
         }
 
         [Authorize(Policy = "AdminRead")]
-        [HttpGet("resources")]
+        [HttpGet]
+        [Route("resources")]
         public async Task<ActionResult<ResourceStatisticsDto>> GetResourceStatistics()
         {
             return Ok(await statisticsService.GetResourceStatisticsAsync());
         }
 
         [Authorize(Policy = "AdminRead")]
-        [HttpGet("reservations/monthCounts")]
+        [HttpGet]
+        [Route("reservations/monthCounts")]
         public async Task<ActionResult<CountsPerMonthDto>> GetReservationCounts()
         {
             return Ok(await statisticsService.GetReservationCountsPerMonthAsync());
         }
 
         [Authorize(Policy = "AdminRead")]
-        [HttpGet("registrations/monthCounts")]
+        [HttpGet]
+        [Route("registrations/monthCounts")]
         public async Task<ActionResult<CountsPerMonthDto>> GetRegistrationsCounts() {
             return Ok(await statisticsService.GetUsersRegistrationsCountsPerMonthAsync());
         }
 
         [Authorize(Policy = "AdminRead")]
-        [HttpGet("reservations/top3")]
+        [HttpGet]
+        [Route("reservations/top3")]
         public async Task<ActionResult<TopThreeResourcesDto>> GetTopThreeReservationCounts()
         {
             return Ok(await statisticsService.GetTopThreeResourcesAsync());

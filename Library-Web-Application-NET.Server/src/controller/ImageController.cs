@@ -1,4 +1,5 @@
 ﻿using Library_Web_Application_NET.Server.src.service.interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
@@ -7,6 +8,7 @@ namespace Library_Web_Application_NET.Server.src.controller
 {
     [Route("api/images")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ImageController : ControllerBase
     {
         private readonly string imagePath = Path.Combine("wwwroot", "images");
@@ -21,6 +23,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             this.resourceService = resourceService;
         }
 
+        [AllowAnonymous]
         [HttpGet("{filename}")]
         public IActionResult GetImage(string? filename)
         {
@@ -34,6 +37,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("userImage/{filename}")]
         public IActionResult GetUserImage(string? filename)
         {

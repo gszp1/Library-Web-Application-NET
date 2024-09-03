@@ -59,10 +59,23 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
 
-            // Contollers
-            builder.Services.AddControllers();
 
-            // JWT Config and Authentication
+            // Cors
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
+
+
+            // Authentication // 
+
+            // JWT Config
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme =
@@ -86,19 +99,6 @@ namespace Library_Web_Application_NET.Server
                 };
             });
 
-            // Authorization
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("AdminCreate", policy => policy.RequireClaim("Permission", Permission.Admin_Create.ToString()));
-                options.AddPolicy("AdminRead", policy => policy.RequireClaim("Permission", Permission.Admin_Read.ToString()));
-                options.AddPolicy("AdminUpdate", policy => policy.RequireClaim("Permission", Permission.Admin_Update.ToString()));
-                options.AddPolicy("AdminDelete", policy => policy.RequireClaim("Permission", Permission.Admin_Delete.ToString()));
-                options.AddPolicy("UserCreate", policy => policy.RequireClaim("Permission", Permission.User_Create.ToString()));
-                options.AddPolicy("UserRead", policy => policy.RequireClaim("Permission", Permission.User_Read.ToString()));
-                options.AddPolicy("UserUpdate", policy => policy.RequireClaim("Permission", Permission.User_Update.ToString()));
-                options.AddPolicy("UserDelete", policy => policy.RequireClaim("Permission", Permission.User_Delete.ToString()));
-            });
-
             // Identity
             builder.Services.AddIdentity<User, UserRole>(options =>
             {
@@ -113,16 +113,24 @@ namespace Library_Web_Application_NET.Server
             .AddEntityFrameworkStores<LibraryDbContext>()
             .AddDefaultTokenProviders();
 
-            // Cors Config
-            builder.Services.AddCors(options =>
+
+            // Authorization //
+
+            builder.Services.AddAuthorization(options =>
             {
-                options.AddPolicy("AllowAll", policy =>
-                {
-                    policy.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader();
-                });
+                options.AddPolicy("AdminCreate", policy => policy.RequireClaim("Permission", Permission.Admin_Create.ToString()));
+                options.AddPolicy("AdminRead", policy => policy.RequireClaim("Permission", Permission.Admin_Read.ToString()));
+                options.AddPolicy("AdminUpdate", policy => policy.RequireClaim("Permission", Permission.Admin_Update.ToString()));
+                options.AddPolicy("AdminDelete", policy => policy.RequireClaim("Permission", Permission.Admin_Delete.ToString()));
+                options.AddPolicy("UserCreate", policy => policy.RequireClaim("Permission", Permission.User_Create.ToString()));
+                options.AddPolicy("UserRead", policy => policy.RequireClaim("Permission", Permission.User_Read.ToString()));
+                options.AddPolicy("UserUpdate", policy => policy.RequireClaim("Permission", Permission.User_Update.ToString()));
+                options.AddPolicy("UserDelete", policy => policy.RequireClaim("Permission", Permission.User_Delete.ToString()));
             });
+
+            // Controllers //
+
+            builder.Services.AddControllers();
 
             var app = builder.Build();
 
@@ -137,19 +145,20 @@ namespace Library_Web_Application_NET.Server
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            //// Configure the HTTP request pipeline.
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI();
+            //}
+
+            app.UseRouting();
 
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.MapControllers();
-
-            app.MapFallbackToFile("/index.html");
 
             app.Run();
         }

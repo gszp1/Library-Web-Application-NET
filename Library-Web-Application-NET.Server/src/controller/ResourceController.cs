@@ -4,6 +4,7 @@ using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.service.interfaces;
 using Library_Web_Application_NET.Server.src.util;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +13,7 @@ namespace Library_Web_Application_NET.Server.src.controller
 {
     [Route("api/resources")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ResourceController : ControllerBase
     {
         private readonly IResourceService resourceService;
@@ -25,6 +27,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             this.instanceService = instanceService;
         }
 
+        [AllowAnonymous]
         [HttpGet("all")]
         public async Task<ActionResult<List<ResourceDto>>> GetAll([FromQuery] string? keyword)
         {
@@ -45,6 +48,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             return Ok(await resourceService.GetAllAdminAsync());
         }
 
+        [AllowAnonymous]
         [HttpGet("all/paginated")]
         public async Task<ActionResult<List<ResourceDto>>> GetAllPaginated
         (
@@ -67,12 +71,14 @@ namespace Library_Web_Application_NET.Server.src.controller
             return Ok(await resourceService.GetResourcesWithKeywordInTitlePageableAsync(keyword, pageable));
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}/description")]
         public async Task<ActionResult<ResourceDescriptionDto>> GetDescription(int id)
         {
             return Ok(await resourceService.GetResourceDescriptionAsync(id));
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}/instances/notReserved")]
         public async Task<ActionResult<List<InstanceDto>>> GetNotReservedInstances(int id)
         {
