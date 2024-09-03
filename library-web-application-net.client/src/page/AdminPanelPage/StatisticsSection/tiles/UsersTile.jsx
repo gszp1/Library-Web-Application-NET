@@ -13,7 +13,7 @@ function UsersTile({setSection}) {
     const [error, setError] = useState(false);
 
     const fetchUserStats = async () => {
-        const url = 'https://localhost:9090/api/statistics/users';
+        const url = 'http://localhost:9090/api/statistics/users';
         try {
             let response = await axios.get(url, {
                 headers: {

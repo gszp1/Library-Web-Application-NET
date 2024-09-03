@@ -2,6 +2,7 @@
 using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.service.interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library_Web_Application_NET.Server.src.controller
@@ -17,6 +18,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             this.publisherService = publisherService;
         }
 
+        [Authorize(Policy = "AdminCreate")]
         [HttpPost("create")]
         public async Task<ActionResult<string>> Create([FromBody] PublisherDto dto)
         {
@@ -31,12 +33,14 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "AdminRead")]
         [HttpGet("all")]
         public async Task<ActionResult<List<AdminPublisherDto>>> GetAll()
         {
             return Ok(await publisherService.GetAllPublishersAsync());
         }
 
+        [Authorize(Policy = "AdminUpdate")]
         [HttpPut("update")]
         public async Task<ActionResult<string>> Update([FromBody] AdminPublisherDto dto)
         {

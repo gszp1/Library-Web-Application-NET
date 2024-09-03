@@ -2,6 +2,7 @@
 using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.service.interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library_Web_Application_NET.Server.src.controller
@@ -17,12 +18,14 @@ namespace Library_Web_Application_NET.Server.src.controller
             this.reservationService = reservationService;
         }
 
+        [Authorize(Policy = "AdminRead")]
         [HttpGet("all")]
         public async Task<ActionResult<List<AdminReservationDto>>> GetAllReservations()
         {
             return Ok(await reservationService.GetAllReservationsAsync());
         }
 
+        [Authorize(Policy = "UserCreate")]
         [HttpPost("create")]
         public async Task<ActionResult<string>> CreateReservation([FromBody] ReservationRequest request)
         {
@@ -45,12 +48,14 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "UserRead")]
         [HttpPut("{email}/all")]
         public async Task<ActionResult<List<UserReservationDto>>> GetAllReservationsByUserEmail(string email)
         {
             return Ok(await reservationService.GetUserReservationsAsync(email));
         }
 
+        [Authorize(Policy = "UserUpdate")]
         [HttpPut("{id}/extend")]
         public async Task<ActionResult<string>> ExtendReservation(int id)
         {
@@ -69,6 +74,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "UserUpdate")]
         [HttpPut("{id}/cancel")]
         public async Task<ActionResult<string>> CancelReservation(int id)
         {
@@ -87,6 +93,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "AdminUpdate")]
         [HttpPut("{id}/borrow")]
         public async Task<ActionResult<string>> BorrowReservation(int id)
         {
@@ -105,6 +112,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "AdminUpdate")]
         [HttpPut("update")]
         public async Task<ActionResult<string>> UpdateReservation([FromBody] AdminReservationDto dto) 
         { 

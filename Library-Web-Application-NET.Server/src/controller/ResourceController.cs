@@ -4,6 +4,7 @@ using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.service.interfaces;
 using Library_Web_Application_NET.Server.src.util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -37,6 +38,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "AdminRead")]
         [HttpGet("admin/all")]
         public async Task<ActionResult<List<AdminResourceDto>>> GetAllAdmin()
         {
@@ -77,6 +79,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             return Ok(await instanceService.GetNotReservedInstancesOfResourceAsync(id));
         }
 
+        [Authorize(Policy = "AdminCreate")]
         [HttpPost("create")]
         public async Task<ActionResult<string>> CreateResource([FromBody] CreateResourceDto dto)
         {
@@ -91,6 +94,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "AdminUpdate")]
         [HttpPut("update")]
         public async Task<ActionResult<string>> UpdateResource([FromBody] UpdateResourceDto dto)
         {

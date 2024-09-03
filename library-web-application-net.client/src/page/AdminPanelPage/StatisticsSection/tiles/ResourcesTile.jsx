@@ -14,7 +14,7 @@ function ResourcesTile({setSection}) {
     const [error, setError] = useState(false);
 
     const fetchResourcesStats = async () => {
-        const url = 'https://localhost:9090/api/statistics/resources';
+        const url = 'http://localhost:9090/api/statistics/resources';
         try {
             let response = await axios.get(url, {
                 headers: {

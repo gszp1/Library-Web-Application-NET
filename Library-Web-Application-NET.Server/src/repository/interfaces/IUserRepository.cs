@@ -1,4 +1,6 @@
-﻿using Library_Web_Application_NET.Server.src.model;
+﻿using Library_Web_Application_NET.Server.src.auth;
+using Library_Web_Application_NET.Server.src.dto;
+using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.statistics;
 
 namespace Library_Web_Application_NET.Server.src.repository.interfaces
@@ -16,5 +18,9 @@ namespace Library_Web_Application_NET.Server.src.repository.interfaces
         Task<long> CountByRegistrationDateMonthAsync(int month);
 
         Task<List<MonthCount>> GetNumberOfRegistrationsPerMonthAsync();
+
+        Task<List<UserWithRole>> FindUsersAndRolesByEmailKeywordAsync(string keyword);
+
+        Task<List<UserWithRole>> FindAllUsersWithRolesAsync();
     }
 }

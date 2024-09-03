@@ -3,6 +3,7 @@ using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.service;
 using Library_Web_Application_NET.Server.src.service.interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Runtime.ConstrainedExecution;
@@ -20,6 +21,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             this.userService = userService;
         }
 
+        [Authorize(Policy = "UserRead")]
         [HttpGet("{email}/credentials")]
         public async Task<ActionResult<UserDto>> GetUserByEmail(string email)
         {
@@ -31,6 +33,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             return user;
         }
 
+        [Authorize(Policy = "UserUpdate")]
         [HttpGet("update")]
         public async Task<ActionResult<string>> UpdateUserCredentials([FromBody] UserDto dto)
         {
@@ -45,6 +48,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "AdminRead")]
         [HttpGet("all")]
         public async Task<ActionResult<List<AdminAuthorDto>>> GetAllByEmailKeyword([FromQuery] string? keyword) 
         {
@@ -55,12 +59,14 @@ namespace Library_Web_Application_NET.Server.src.controller
             return Ok(await userService.FindAllByEmailKeywordAsync(keyword));
         }
 
+        [Authorize(Policy = "AdminRead")]
         [HttpGet("{id}")]
         public async Task<ActionResult<AdminUserDto>> GetUserById(int id)
         {
             return Ok(await userService.FindByIdAsync(id));
         }
 
+        [Authorize(Policy = "AdminUpdate")]
         [HttpPut("admin/update")]
         public async Task<ActionResult<string>> UpdateUser([FromBody] AdminUserDto dto)
         {

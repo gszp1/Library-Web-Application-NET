@@ -1,4 +1,5 @@
 ﻿using Library_Web_Application_NET.Server.src.service.interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
@@ -46,6 +47,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "UserUpdate")]
         [HttpPut("user/{email}/image")]
         public async Task<IActionResult> UpdateImage(string email, IFormFile image)
         {
@@ -72,6 +74,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "AdminUpdate")]
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateResourceImage(int id, IFormFile image)
         {
@@ -97,6 +100,7 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
         }
 
+        [Authorize(Policy = "AdminCreate")]
         [HttpPost("create/{id}")]
         public async Task<IActionResult> AddResourceImage(int id, IFormFile image)
         {
