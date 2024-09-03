@@ -73,16 +73,23 @@ namespace Library_Web_Application_NET.Server.src.controller
 
         [AllowAnonymous]
         [HttpGet("{id}/description")]
-        public async Task<ActionResult<ResourceDescriptionDto>> GetDescription(int id)
+        public async Task<ActionResult<ResourceDescriptionDto>> GetDescriptionAsync(int id)
         {
             return Ok(await resourceService.GetResourceDescriptionAsync(id));
         }
 
         [AllowAnonymous]
         [HttpGet("{id}/instances/notReserved")]
-        public async Task<ActionResult<List<InstanceDto>>> GetNotReservedInstances(int id)
+        public async Task<ActionResult<List<InstanceDto>>> GetNotReservedInstancesAsync(int id)
         {
             return Ok(await instanceService.GetNotReservedInstancesOfResourceAsync(id));
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{id}/instances")]
+        public async Task<ActionResult<List<InstanceDto>>> GetAllResourceInstancesAsync(int id)
+        {
+            return Ok(await instanceService.GetAllInstancesByResourceIdAsync(id, "InstanceId", false));
         }
 
         [Authorize(Policy = "AdminCreate")]
