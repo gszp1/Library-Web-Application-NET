@@ -106,6 +106,7 @@ namespace Library_Web_Application_NET.Server
                 options.Password.RequireUppercase = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = false;
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedAccount = true;
             })
@@ -131,6 +132,7 @@ namespace Library_Web_Application_NET.Server
             var services = scope.ServiceProvider;
             var initialiser = services.GetRequiredService<DbInitializer>();
             initialiser.Run(services);
+            initialiser.SeedAdminIntoDatabase(services);
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
