@@ -1,4 +1,5 @@
 
+using Library_Web_Application_NET.Server.src.admin;
 using Library_Web_Application_NET.Server.src.auth;
 using Library_Web_Application_NET.Server.src.auth.data;
 using Library_Web_Application_NET.Server.src.auth.Interface;
@@ -58,6 +59,7 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddScoped<IStatisticsService, StatisticsService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IDbConfigurationService, DbConfigurationService>();
 
 
             // Cors
