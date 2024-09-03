@@ -33,13 +33,13 @@ namespace Library_Web_Application_NET.Server.src.auth
         {
             try
             {
-                var user = await userManager.Users.FirstOrDefaultAsync(u => u.Email.Equals(request.Email))
+                var user = await userManager.FindByEmailAsync(request.Email)
                     ?? throw new NoSuchRecordException("Given user does not exist.");
                 Console.WriteLine("Passed user exists");
                 var result = await signInManager.CheckPasswordSignInAsync(user, request.Password, false);
                 if (!result.Succeeded)
                 {
-                    Console.WriteLine("password error.");
+                    Console.Write(result.ToString() + "\n");
                     throw new InvalidCredentialsException();
                 }
                 return new AuthenticationResponse()

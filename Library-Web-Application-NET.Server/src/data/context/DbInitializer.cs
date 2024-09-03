@@ -56,7 +56,10 @@ namespace Library_Web_Application_NET.Server.src.data.context
                         UserName = adminEmail,
                         Email = adminEmail,
                         JoinDate = DateOnly.FromDateTime(DateTime.Now),
-                        Status = UserStatus.Active
+                        Status = UserStatus.Active,
+                        PhoneNumberConfirmed = true,
+                        LockoutEnabled = false,
+                        EmailConfirmed = true
                     };
                     var password = "AdminAdmin1";
                     var result = await userManager.CreateAsync(adminUser, password);
