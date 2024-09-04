@@ -9,8 +9,8 @@ function UsersListEntry({user, saveUser}) {
         phoneNumber: user.phoneNumber || "",
         joinDate: user.joinDate || "",
         imageUrl: user.imageUrl || "",
-        status: user.status || "ACTIVE",
-        role: user.role || "USER"
+        status: user.status || "Active",
+        role: user.role || "User"
     });
 
     const handleChange = (e) => {
@@ -36,14 +36,14 @@ function UsersListEntry({user, saveUser}) {
             <td><input type="text" name="imageUrl" value={editableUser.imageUrl} onChange={handleChange} /></td>
             <td>
                 <select name="status" value={editableUser.status} onChange={handleChange}>
-                    <option value="ACTIVE">ACTIVE</option>
-                    <option value="CLOSED">CLOSED</option>
+                    <option value="Active">Active</option>
+                    <option value="Closed">Closed</option>
                 </select>
             </td>
             <td>
                 <select name="role" value={editableUser.role} onChange={handleChange}>
-                    <option value="USER">USER</option>
-                    <option value="ADMIN">ADMIN</option>
+                    <option value="User">User</option>
+                    <option value="Admin">Admin</option>
                 </select>
             </td>
             <td><button onClick={handleSave}>Update</button></td>

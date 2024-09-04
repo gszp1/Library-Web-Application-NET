@@ -54,7 +54,7 @@ function InstancesListEntry({instance, listId, withdrawInstance, updateInstance}
                 >
                     <option value="Active">Active</option>
                     <option value="Withdrawn">Withdrawn</option>
-                    <option value="Awaiting_withdrawal">Awaiting_withdrawal</option>
+                    <option value="Awaiting_withdrawal">Awaiting withdrawal</option>
                 </select>
             </td>
             <td>
