@@ -2,8 +2,8 @@
 {
     public interface IDbConfigurationService
     {
-        public Task CreateEmptyDatabase();
+        public Task CreateEmptyDatabaseAsync();
 
-        public Task CreateDatabaseWithExampleData();
+        public Task CreateDatabaseWithExampleDataAsync();
     }
 }

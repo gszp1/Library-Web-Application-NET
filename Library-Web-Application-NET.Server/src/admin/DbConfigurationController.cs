@@ -19,15 +19,20 @@ namespace Library_Web_Application_NET.Server.src.admin
 
         [HttpPost]
         [Route("database/create")]
-        [Authorize(Policy = "AuthorCreate")]
-        public async Task<IActionResult> createDatabase([FromQuery] bool withData)
+        [Authorize(Policy = "AdminCreate")]
+        public async Task<IActionResult> CreateDatabase([FromQuery] bool withData)
         {
             try
             {
+                if (withData == false)
+                {
+                    await dbConfigurationService.CreateEmptyDatabaseAsync();
+                }
                 return Ok("Database created.");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e);
                 return StatusCode(500, "Failed to create database.");
             }
         }

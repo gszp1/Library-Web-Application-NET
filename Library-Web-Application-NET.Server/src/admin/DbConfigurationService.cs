@@ -18,7 +18,7 @@ namespace Library_Web_Application_NET.Server.src.admin
             initializer = new DbInitializer(context);
         }
 
-        public async Task CreateDatabaseWithExampleData()
+        public async Task CreateDatabaseWithExampleDataAsync()
         {
             //await context.Database.EnsureDeletedAsync();
             //await context.Database.EnsureCreatedAsync();
@@ -26,7 +26,7 @@ namespace Library_Web_Application_NET.Server.src.admin
             throw new NotImplementedException();
         }
 
-        public async Task CreateEmptyDatabase()
+        public async Task CreateEmptyDatabaseAsync()
         {
             await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
