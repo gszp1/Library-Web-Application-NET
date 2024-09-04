@@ -9,7 +9,7 @@ function ReservationsListEntry({reservation, updateReservation, borrowResource})
         start: reservation.start || '',
         end: reservation.end || '',
         numberOfExtensions: reservation.numberOfExtensions || 0,
-        status: reservation.status || 'ACTIVE'
+        status: reservation.status || 'Active'
     });
 
 
@@ -22,7 +22,7 @@ function ReservationsListEntry({reservation, updateReservation, borrowResource})
             start: reservation.start || '',
             end: reservation.end || '',
             numberOfExtensions: reservation.numberOfExtensions || 0,
-            status: reservation.status || 'ACTIVE'
+            status: reservation.status || 'Active'
         });
     }, [reservation]);
 
@@ -108,11 +108,11 @@ function ReservationsListEntry({reservation, updateReservation, borrowResource})
                     value={updatedReservation.status}
                     onChange={handleChange}
                 >
-                    <option value="ACTIVE">ACTIVE</option>
-                    <option value="CANCELLED">CANCELLED</option>
-                    <option value="BORROWED">BORROWED</option>
-                    <option value="COMPLETED">COMPLETED</option>
-                    <option value="EXPIRED">EXPIRED</option>
+                    <option value="Active">Active</option>
+                    <option value="Cancelled">Cancelled</option>
+                    <option value="Borrow">Borrowed</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Expired">Expired</option>
                 </select>
             </td>
             <td>

@@ -20,7 +20,7 @@ namespace Library_Web_Application_NET.Server.src.data.context
             context.Database.EnsureCreated();
         }
 
-        public async void SeedAdminIntoDatabase(IServiceProvider serviceProvider)
+        public async Task SeedAdminIntoDatabase(IServiceProvider serviceProvider)
         {
             using (var scope = serviceProvider.CreateScope())
             {

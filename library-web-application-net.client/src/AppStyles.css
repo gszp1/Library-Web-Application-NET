@@ -6,6 +6,8 @@ body {
     background-image: url("./assets/image/background.png");
     background-size: cover;
     background-position: center;
+    font-family: "Times New Roman", serif;
+    font-size: 16px;
 }
 
 .appBackground {
