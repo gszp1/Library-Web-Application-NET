@@ -52,9 +52,9 @@ function InstancesListEntry({instance, listId, withdrawInstance, updateInstance}
                     value={updatedInstance.instanceStatus}
                     onChange={handleChange}
                 >
-                    <option value="ACTIVE">ACTIVE</option>
-                    <option value="WITHDRAWN">WITHDRAWN</option>
-                    <option value="AWAITING_WITHDRAWAL">AWAITING_WITHDRAWAL</option>
+                    <option value="Active">Active</option>
+                    <option value="Withdrawn">Withdrawn</option>
+                    <option value="Awaiting_withdrawal">Awaiting_withdrawal</option>
                 </select>
             </td>
             <td>
