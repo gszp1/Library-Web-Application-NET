@@ -17,7 +17,7 @@ function InformationSection({userCredentials, setUserCredentials, setSection}) {
             } catch (error) {
                 console.log("failed to parse token");
             }
-            let url = `https://localhost:9090/api/users/${email}/credentials`;
+            let url = `http://localhost:9090/api/users/${email}/credentials`;
             try {
                 let response = await axios.get(url, {
                     headers: {

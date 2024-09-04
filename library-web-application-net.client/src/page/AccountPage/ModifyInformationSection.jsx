@@ -75,7 +75,7 @@ function ModifyInformationSection({credentials, setCredentials, setSection}) {
             return;
         }
 
-        let url = `https://localhost:9090/api/users/update`;
+        let url = `http://localhost:9090/api/users/update`;
         console.log(url);
         try {
             const sentCredentials = {...newCredentials,
@@ -141,7 +141,7 @@ function ModifyInformationSection({credentials, setCredentials, setSection}) {
         try {
             const formData = new FormData();
             formData.append('image', selectedImage);
-            await axios.put(`https://localhost:9090/api/images/user/${credentials.email}/image`, formData, {
+            await axios.put(`http://localhost:9090/api/images/user/${credentials.email}/image`, formData, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('WebLibToken')}`,
                     'Content-Type': 'multipart/form-data'
