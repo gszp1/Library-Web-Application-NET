@@ -68,12 +68,13 @@ namespace Library_Web_Application_NET.Server.src.repository
 
         public async Task<List<MonthCount>> GetNumberOfRegistrationsPerMonthAsync()
         {
-            return await context
-                .Users
-                .GroupBy(u => u.JoinDate.Month)
-                .Select(u => new MonthCount() { Month = u.Key, Count = u.Count() })
+            List<UserWithRole> userWithRoles = await FindAllUsersWithRolesAsync();
+            return userWithRoles
+                .Where(uwr => uwr.RoleName.Equals("User"))
+                .GroupBy(uwr => uwr.User.JoinDate.Month)
+                .Select(uwr => new MonthCount() { Month = uwr.Key, Count = uwr.Count() })
                 .OrderByDescending(m => m.Month)
-                .ToListAsync();
+                .ToList();
         }
 
         public async Task<List<UserWithRole>> FindUsersAndRolesByEmailKeywordAsync(string keyword)
