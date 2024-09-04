@@ -27,12 +27,14 @@ namespace Library_Web_Application_NET.Server.src.admin
                 if (withData == false)
                 {
                     await dbConfigurationService.CreateEmptyDatabaseAsync();
+                } else
+                {
+                    await dbConfigurationService.CreateDatabaseWithExampleDataAsync();
                 }
                 return Ok("Database created.");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
                 return StatusCode(500, "Failed to create database.");
             }
         }
