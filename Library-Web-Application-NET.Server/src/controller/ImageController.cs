@@ -153,9 +153,9 @@ namespace Library_Web_Application_NET.Server.src.controller
         private bool ValidateFileType(IFormFile file)
         {
             var mimeType = file.ContentType;
-            return !(mimeType == "image/jpeg" ||
-                     mimeType == "image/png" ||
-                     mimeType == "image/webp");
+            return (mimeType.Equals("image/jpeg") ||
+                     mimeType.Equals("image/png") ||
+                     mimeType.Equals("image/webp"));
         }
     }
 }

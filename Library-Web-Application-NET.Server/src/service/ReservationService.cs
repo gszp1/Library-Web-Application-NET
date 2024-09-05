@@ -54,7 +54,11 @@ namespace Library_Web_Application_NET.Server.src.service
                 ?? throw new NoSuchRecordException("User with given email does not exist.");
             int reservationCount = instance
                 .Reservations
-                .Where(r => r.UserId == user.Id && r.InstanceId == instanceId)
+                .Where(
+                    r => r.UserId == user.Id &&
+                    (r.Status == ReservationStatus.Active || r.Status == ReservationStatus.Borrowed) &&
+                    r.Instance.ResourceId == instance.ResourceId
+                )
                 .Count();
             if (reservationCount > 0)
             {
