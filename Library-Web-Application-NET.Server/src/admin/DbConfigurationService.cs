@@ -11,11 +11,14 @@ namespace Library_Web_Application_NET.Server.src.admin
 
         private readonly DbInitializer initializer;
 
-        public DbConfigurationService(LibraryDbContext context, IServiceProvider serviceProvider) 
+        private readonly IWebHostEnvironment env;
+
+        public DbConfigurationService(LibraryDbContext context, IServiceProvider serviceProvider, IWebHostEnvironment env) 
         {
             this.context = context;
             this.serviceProvider = serviceProvider;
             initializer = new DbInitializer(context);
+            this.env = env;
         }
 
         public async Task CreateDatabaseWithExampleDataAsync()
@@ -30,7 +33,33 @@ namespace Library_Web_Application_NET.Server.src.admin
         {
             await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
+            ClearWwwRoot();
             await initializer.SeedAdminIntoDatabase(serviceProvider);
+        }
+
+        private void ClearWwwRoot()
+        {
+            string imageDirPath = Path.Combine(env.WebRootPath, "images");
+            string userImageDirPath = Path.Combine(env.WebRootPath, "userImages");
+
+            if (Directory.Exists(imageDirPath))
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(imageDirPath);
+                foreach (FileInfo fileInfo in directoryInfo.GetFiles())
+                {
+                    fileInfo.Delete();
+                }
+            }
+
+            if (Directory.Exists(userImageDirPath))
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(userImageDirPath);
+                foreach (FileInfo fileInfo in directoryInfo.GetFiles())
+                {
+                    fileInfo.Delete();
+                }
+            }
+
         }
     }
 }

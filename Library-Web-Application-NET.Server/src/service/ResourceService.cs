@@ -5,6 +5,7 @@ using Library_Web_Application_NET.Server.src.repository.interfaces;
 using Library_Web_Application_NET.Server.src.service.interfaces;
 using Library_Web_Application_NET.Server.src.util;
 using Microsoft.IdentityModel.Tokens;
+using System.Linq;
 
 namespace Library_Web_Application_NET.Server.src.service
 {
@@ -141,7 +142,7 @@ namespace Library_Web_Application_NET.Server.src.service
                 .Resources
                 .FindByResourceIdAsync(dto.Id)
                 ?? throw new NoSuchRecordException("Resource with given Id does not exist.");
-            if (dto.Title.IsNullOrEmpty() || dto.Identifier.IsNullOrEmpty() || dto.Publisher.IsNullOrEmpty()) 
+            if (dto.Title.IsNullOrEmpty() || dto.Identifier.IsNullOrEmpty() || dto.Publisher.IsNullOrEmpty())
             {
                 throw new InvalidRequestDataException("Not all required fields provided.");
             }
@@ -170,7 +171,7 @@ namespace Library_Web_Application_NET.Server.src.service
             {
                 throw new InvalidDataException("Provided authors are invalid.");
             }
-            if (!resource.Publisher.Name.Equals(publisher.Name)) 
+            if (!resource.Publisher.Name.Equals(publisher.Name))
             {
                 Publisher old = resource.Publisher;
                 resource.Publisher.Resources.Remove(resource);
@@ -188,8 +189,8 @@ namespace Library_Web_Application_NET.Server.src.service
             resource.Authors.AddRange(authorsToAdd);
             foreach (Author author in authorsToRemove)
             { resource.Authors.Remove(author); }
-            foreach(Author author in authorsToAdd)
-            {  resource.Authors.Add(author); }
+            foreach (Author author in authorsToAdd)
+            { resource.Authors.Add(author); }
             unitOfWork.Authors.UpdateRange([.. authorsToAdd, .. authorsToRemove]);
             resource.Title = dto.Title;
             resource.Identifier = dto.Identifier;

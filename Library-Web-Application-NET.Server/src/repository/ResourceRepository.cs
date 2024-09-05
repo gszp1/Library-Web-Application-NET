@@ -50,7 +50,9 @@ namespace Library_Web_Application_NET.Server.src.repository
         {
             return await context
                 .Resources
-                .FindAsync(resourceId);
+                .Include(r => r.Authors)
+                .Include(r => r.Publisher)
+                .FirstOrDefaultAsync(r => r.ResourceId == resourceId);
         }
 
         public async Task<List<Resource>> FindAllByTitleKeywordAsync(string keyword)

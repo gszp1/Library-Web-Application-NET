@@ -71,6 +71,7 @@ function ResourcePage(){
             });
             setDisplayPrompt(true);
             hidePromptAfterDelay();
+            return;
         }
 
         let decodedToken = jwtDecode(localStorage.getItem('WebLibToken'));
