@@ -70,6 +70,7 @@ namespace Library_Web_Application_NET.Server.src.auth
                     Name = request.Name.IsNullOrEmpty() ? null : request.Name,
                     Surname = request.Surname.IsNullOrEmpty() ? null : request.Surname,
                     JoinDate = DateOnly.FromDateTime(DateTime.Now),
+                    PhoneNumber = request.PhoneNumber.IsNullOrEmpty() ? null : request.PhoneNumber,
                     PhoneNumberConfirmed = true,
                     LockoutEnabled = false,
                     EmailConfirmed = true
