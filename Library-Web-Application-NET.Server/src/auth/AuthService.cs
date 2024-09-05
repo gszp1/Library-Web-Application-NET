@@ -36,6 +36,10 @@ namespace Library_Web_Application_NET.Server.src.auth
                 var user = await userManager.FindByEmailAsync(request.Email)
                     ?? throw new NoSuchRecordException("Given user does not exist.");
                 Console.WriteLine("Passed user exists");
+                if (user.Status == util.UserStatus.Closed)
+                {
+                    throw new OperationNotAvailableException("Failed to authenticate");
+                }
                 var result = await signInManager.CheckPasswordSignInAsync(user, request.Password, false);
                 if (!result.Succeeded)
                 {

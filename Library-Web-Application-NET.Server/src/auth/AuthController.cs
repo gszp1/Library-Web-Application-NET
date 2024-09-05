@@ -1,5 +1,6 @@
 ﻿using Library_Web_Application_NET.Server.src.auth.data;
 using Library_Web_Application_NET.Server.src.auth.Interface;
+using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
@@ -61,6 +62,10 @@ namespace Library_Web_Application_NET.Server.src.auth
                     return StatusCode(401, "Bad credentials.");
                 }
                 return Ok(await authService.Login(loginRequest));
+            }
+            catch (OperationNotAvailableException)
+            {
+                return StatusCode(403, "Authenticate failure");
             }
             catch (Exception)
             {
