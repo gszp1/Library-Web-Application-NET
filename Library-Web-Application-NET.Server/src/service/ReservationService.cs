@@ -67,7 +67,7 @@ namespace Library_Web_Application_NET.Server.src.service
             Reservation reservation = new Reservation()
             {
                 ReservationStart = DateOnly.FromDateTime(DateTime.Now),
-                ReservationEnd = null,
+                ReservationEnd = DateOnly.FromDateTime(DateTime.Now).AddDays(util.ExtensionIntervals.DEFAULT_RESERVATION_TIME),
                 Status = ReservationStatus.Active,
                 ExtensionCount = 0,
                 UserId = user.Id,
