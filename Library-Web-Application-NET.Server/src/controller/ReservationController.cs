@@ -51,7 +51,7 @@ namespace Library_Web_Application_NET.Server.src.controller
         }
 
         [Authorize(Policy = "UserRead")]
-        [HttpPut("{email}/all")]
+        [HttpGet("{email}/all")]
         public async Task<ActionResult<List<UserReservationDto>>> GetAllReservationsByUserEmail(string email)
         {
             return Ok(await reservationService.GetUserReservationsAsync(email));

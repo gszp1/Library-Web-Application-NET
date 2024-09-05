@@ -53,6 +53,8 @@ namespace Library_Web_Application_NET.Server.src.repository
             return await context
                 .Reservations
                 .Include(r => r.Instance)
+                .ThenInclude(i => i.Resource)
+                .Include(r => r.User)
                 .Where(r => r.User.Email.Equals(userEmail))
                 .ToListAsync();
         }
