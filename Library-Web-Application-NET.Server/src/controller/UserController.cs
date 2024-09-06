@@ -11,8 +11,8 @@ using System.Runtime.ConstrainedExecution;
 
 namespace Library_Web_Application_NET.Server.src.controller
 {
-    [Route("api/users")]
     [ApiController]
+    [Route("api/users")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UserController : ControllerBase
     {
@@ -36,7 +36,7 @@ namespace Library_Web_Application_NET.Server.src.controller
         }
 
         [Authorize(Policy = "UserUpdate")]
-        [HttpGet("update")]
+        [HttpPut("update")]
         public async Task<ActionResult<string>> UpdateUserCredentials([FromBody] UserDto dto)
         {
             try

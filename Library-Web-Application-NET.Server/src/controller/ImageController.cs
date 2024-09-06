@@ -11,16 +11,20 @@ namespace Library_Web_Application_NET.Server.src.controller
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ImageController : ControllerBase
     {
-        private readonly string imagePath = Path.Combine("wwwroot", "images");
-        private readonly string userImagePath = Path.Combine("wwwroot", "userImages");
+        private readonly IWebHostEnvironment env;
+        private readonly string imagePath;
+        private readonly string userImagePath;
 
         private readonly IUserService userService;
         private readonly IResourceService resourceService;
 
-        public ImageController(IUserService userService, IResourceService resourceService)
+        public ImageController(IUserService userService, IResourceService resourceService, IWebHostEnvironment env)
         {
             this.userService = userService;
             this.resourceService = resourceService;
+            this.env = env;
+            imagePath = Path.Combine(env.WebRootPath, "images");
+            userImagePath = Path.Combine(env.WebRootPath, "userImages");
         }
 
         [AllowAnonymous]
@@ -153,9 +157,9 @@ namespace Library_Web_Application_NET.Server.src.controller
         private bool ValidateFileType(IFormFile file)
         {
             var mimeType = file.ContentType;
-            return !(mimeType == "image/jpeg" ||
-                     mimeType == "image/png" ||
-                     mimeType == "image/webp");
+            return (mimeType.Equals("image/jpeg") ||
+                     mimeType.Equals("image/png") ||
+                     mimeType.Equals("image/webp"));
         }
     }
 }

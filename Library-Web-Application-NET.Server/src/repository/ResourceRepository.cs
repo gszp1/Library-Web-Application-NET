@@ -50,14 +50,16 @@ namespace Library_Web_Application_NET.Server.src.repository
         {
             return await context
                 .Resources
-                .FindAsync(resourceId);
+                .Include(r => r.Authors)
+                .Include(r => r.Publisher)
+                .FirstOrDefaultAsync(r => r.ResourceId == resourceId);
         }
 
         public async Task<List<Resource>> FindAllByTitleKeywordAsync(string keyword)
         {
             return await context
                 .Resources
-                .Where(r => r.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                .Where(r => r.Title.ToLower().Contains(keyword.ToLower()))
                 .ToListAsync();
         }
 
@@ -65,7 +67,7 @@ namespace Library_Web_Application_NET.Server.src.repository
         {
             var query = context
                 .Resources
-                .Where(r => r.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                .Where(r => r.Title.ToLower().Contains(keyword.ToLower()))
                 .Include(r => r.Publisher)
                 .Include(r => r.Authors)
                 .AsQueryable();

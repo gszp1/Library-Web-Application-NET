@@ -122,11 +122,12 @@ namespace Library_Web_Application_NET.Server.src.controller
             }
             catch (InvalidRequestDataException irde)
             {
-                {
-                    return BadRequest(irde.Message);
-                }
+                return BadRequest(irde.Message);
             }
-
+            catch (InvalidDataException ide)
+            {
+                return BadRequest(ide.Message);
+            }
         }
     }
 }

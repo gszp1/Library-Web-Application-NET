@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Library_Web_Application_NET.Server
 {
@@ -60,7 +61,6 @@ namespace Library_Web_Application_NET.Server
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IDbConfigurationService, DbConfigurationService>();
-
 
             // Cors
 
@@ -132,7 +132,11 @@ namespace Library_Web_Application_NET.Server
 
             // Controllers //
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
 
             var app = builder.Build();
 

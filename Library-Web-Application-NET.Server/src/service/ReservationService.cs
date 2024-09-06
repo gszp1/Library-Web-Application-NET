@@ -52,10 +52,14 @@ namespace Library_Web_Application_NET.Server.src.service
                 .Users
                 .FindByEmailAsync(userEmail)
                 ?? throw new NoSuchRecordException("User with given email does not exist.");
-            int reservationCount = instance
+            int reservationCount = await unitOfWork
                 .Reservations
-                .Where(r => r.UserId == user.Id && r.InstanceId == instanceId)
-                .Count();
+                .CountUserResourceReservationsWithStatusAsync
+                (
+                    instance.ResourceId,
+                    userEmail,
+                    [ReservationStatus.Active, ReservationStatus.Borrowed]
+                );
             if (reservationCount > 0)
             {
                 throw new UserAlreadyReservedResourceException();
@@ -63,7 +67,7 @@ namespace Library_Web_Application_NET.Server.src.service
             Reservation reservation = new Reservation()
             {
                 ReservationStart = DateOnly.FromDateTime(DateTime.Now),
-                ReservationEnd = null,
+                ReservationEnd = DateOnly.FromDateTime(DateTime.Now).AddDays(util.ExtensionIntervals.DEFAULT_RESERVATION_TIME),
                 Status = ReservationStatus.Active,
                 ExtensionCount = 0,
                 UserId = user.Id,

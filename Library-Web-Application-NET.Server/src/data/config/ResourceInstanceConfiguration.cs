@@ -19,9 +19,6 @@ namespace Library_Web_Application_NET.Server.src.data.config
                 .HasColumnType("int")
                 .ValueGeneratedOnAdd();
 
-            builder.HasIndex(i => i.Reserved)
-                .IsUnique(true);
-
             builder.Property(i => i.Reserved)
                 .HasColumnName("reserved")
                 .HasColumnType("bit")

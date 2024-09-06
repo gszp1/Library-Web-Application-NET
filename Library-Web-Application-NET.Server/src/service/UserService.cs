@@ -141,7 +141,7 @@ namespace Library_Web_Application_NET.Server.src.service
                 ?? throw new NoSuchRecordException("User with given id does not exist.");
             var role = await (from ur in unitOfWork.Context.UserRoles
                               join r in unitOfWork.Context.Roles on ur.RoleId equals r.Id
-                              where ur.RoleId == id
+                              where ur.UserId == user.Id
                               select r.Name).FirstOrDefaultAsync();
 
             return new AdminUserDto

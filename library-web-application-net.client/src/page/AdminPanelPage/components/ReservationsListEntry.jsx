@@ -110,7 +110,7 @@ function ReservationsListEntry({reservation, updateReservation, borrowResource})
                 >
                     <option value="Active">Active</option>
                     <option value="Cancelled">Cancelled</option>
-                    <option value="Borrow">Borrowed</option>
+                    <option value="Borrowed">Borrowed</option>
                     <option value="Completed">Completed</option>
                     <option value="Expired">Expired</option>
                 </select>

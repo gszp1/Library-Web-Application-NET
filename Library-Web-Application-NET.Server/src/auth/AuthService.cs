@@ -35,11 +35,13 @@ namespace Library_Web_Application_NET.Server.src.auth
             {
                 var user = await userManager.FindByEmailAsync(request.Email)
                     ?? throw new NoSuchRecordException("Given user does not exist.");
-                Console.WriteLine("Passed user exists");
+                if (user.Status == util.UserStatus.Closed)
+                {
+                    throw new OperationNotAvailableException("Failed to authenticate");
+                }
                 var result = await signInManager.CheckPasswordSignInAsync(user, request.Password, false);
                 if (!result.Succeeded)
                 {
-                    Console.Write(result.ToString() + "\n");
                     throw new InvalidCredentialsException();
                 }
                 return new AuthenticationResponse()
@@ -49,7 +51,6 @@ namespace Library_Web_Application_NET.Server.src.auth
             }
             catch (Exception e)
             {
-                Console.WriteLine("ex1");
                 Console.WriteLine(e.StackTrace);
                 throw;
             }
@@ -66,6 +67,7 @@ namespace Library_Web_Application_NET.Server.src.auth
                     Name = request.Name.IsNullOrEmpty() ? null : request.Name,
                     Surname = request.Surname.IsNullOrEmpty() ? null : request.Surname,
                     JoinDate = DateOnly.FromDateTime(DateTime.Now),
+                    PhoneNumber = request.PhoneNumber.IsNullOrEmpty() ? null : request.PhoneNumber,
                     PhoneNumberConfirmed = true,
                     LockoutEnabled = false,
                     EmailConfirmed = true
