@@ -19,7 +19,7 @@ function ResourcesPage({searchKeyword}) {
               let url = `http://localhost:9090/api/resources/all/paginated`;
               const params = {
                 keyword: debouncedSearchKeyword,
-                page: page,
+                page: page + 1,
                 size: pageSize
               };
               const response = await axios.get(url, {params});
