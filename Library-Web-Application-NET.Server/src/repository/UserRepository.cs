@@ -26,7 +26,7 @@ namespace Library_Web_Application_NET.Server.src.repository
         {
             return await context
                 .Users
-                .Where(u => u.Email.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0)
+                .Where(u => u.Email.ToLower().IndexOf(keyword.ToLower()) >= 0)
                 .ToListAsync();
         }
 
@@ -80,7 +80,7 @@ namespace Library_Web_Application_NET.Server.src.repository
         public async Task<List<UserWithRole>> FindUsersAndRolesByEmailKeywordAsync(string keyword)
         {
             return await (from user in context.Users
-                          where user.Email.Contains(keyword, StringComparison.OrdinalIgnoreCase)
+                          where user.Email.ToLower().Contains(keyword.ToLower())
                           join userRole in context.UserRoles on user.Id equals userRole.UserId
                           join role in context.Roles on userRole.RoleId equals role.Id
                           select new UserWithRole { User = user, RoleName = role.Name}
