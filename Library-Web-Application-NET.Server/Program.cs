@@ -28,11 +28,6 @@ namespace Library_Web_Application_NET.Server
 
             builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-            // Add services to the container.
-
-            //builder.Services.AddEndpointsApiExplorer();
-            //builder.Services.AddSwaggerGen();
-
             builder.Services.AddDbContext<LibraryDbContext>(options =>
              options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryDb")));
 
@@ -150,13 +145,6 @@ namespace Library_Web_Application_NET.Server
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
-
-            //// Configure the HTTP request pipeline.
-            //if (app.Environment.IsDevelopment())
-            //{
-            //    app.UseSwagger();
-            //    app.UseSwaggerUI();
-            //}
 
             app.UseRouting();
 
