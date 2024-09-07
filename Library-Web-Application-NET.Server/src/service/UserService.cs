@@ -2,7 +2,6 @@
 using Library_Web_Application_NET.Server.src.dto;
 using Library_Web_Application_NET.Server.src.exception;
 using Library_Web_Application_NET.Server.src.model;
-using Library_Web_Application_NET.Server.src.repository;
 using Library_Web_Application_NET.Server.src.repository.interfaces;
 using Library_Web_Application_NET.Server.src.service.interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -162,7 +161,7 @@ namespace Library_Web_Application_NET.Server.src.service
         {
             User? user = await unitOfWork
                  .Users
-                 .FindByEmailAsync(dto.Email)
+                 .FindByIdAsync(dto.Id)
                  ?? throw new NoSuchRecordException("User with given Email does not exist.");
 
             string? oldRoleString = await unitOfWork.Context.UserRoles
