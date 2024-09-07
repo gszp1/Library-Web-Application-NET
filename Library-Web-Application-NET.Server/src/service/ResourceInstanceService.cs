@@ -124,8 +124,8 @@ namespace Library_Web_Application_NET.Server.src.service
                     throw new OperationFailedException("Failed to withraw instance.");
                 }
                 return;
-            }
-            if (borrowedReservations.Count == 1)
+            } 
+            else if (borrowedReservations.Count == 1)
             {
                 Reservation reservation = activeReservations.First();
                 instance.Status = InstanceStatus.Awaiting_withdrawal;

@@ -28,7 +28,7 @@ namespace Library_Web_Application_NET.Server.src.controller
         }
 
         [Authorize(Policy = "AdminUpdate")]
-        [HttpGet("update")]
+        [HttpPut("update")]
         public async Task<ActionResult<string>> UpdateInstance([FromBody] AdminInstanceDto dto)
         {
             try
