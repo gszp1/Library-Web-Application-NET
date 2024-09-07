@@ -73,8 +73,8 @@ namespace Library_Web_Application_NET.Server.src.admin
         public async Task CreateEmptyDatabaseAsync()
         {
             await context.Database.EnsureDeletedAsync();
-            await context.Database.EnsureCreatedAsync();
             ClearWwwRoot();
+            await context.Database.EnsureCreatedAsync();
             await initializer.SeedAdminIntoDatabase(serviceProvider);
         }
 

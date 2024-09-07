@@ -3,12 +3,16 @@ using Library_Web_Application_NET.Server.src.data.config;
 using Library_Web_Application_NET.Server.src.model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library_Web_Application_NET.Server.src.data.context
 {
     public class LibraryDbContext : IdentityDbContext<User, UserRole, int>
     {
+
+        private readonly IWebHostEnvironment env;
+
         // Tables
         public DbSet<Author> Authors { get; set; }
 
@@ -22,8 +26,9 @@ namespace Library_Web_Application_NET.Server.src.data.context
 
         public DbSet<ResourceInstance> ResourcesInstances { get; set; }
 
-        public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options)
+        public LibraryDbContext(DbContextOptions<LibraryDbContext> options, IWebHostEnvironment env) : base(options)
         {
+            this.env = env;
         }
 
         // Configuration

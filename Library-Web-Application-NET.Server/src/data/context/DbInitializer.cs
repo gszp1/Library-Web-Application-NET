@@ -3,6 +3,8 @@ using Library_Web_Application_NET.Server.src.auth.data;
 using Library_Web_Application_NET.Server.src.model;
 using Library_Web_Application_NET.Server.src.util;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library_Web_Application_NET.Server.src.data.context
 {
@@ -77,5 +79,6 @@ namespace Library_Web_Application_NET.Server.src.data.context
                 }
             }
         }
+
     }
 }
