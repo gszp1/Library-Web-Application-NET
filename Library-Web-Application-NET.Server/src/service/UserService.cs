@@ -185,7 +185,11 @@ namespace Library_Web_Application_NET.Server.src.service
             {
                 await CancelAllActiveUserReservationsAsync(user.Email);
             }
-            if (await unitOfWork.CompleteAsync() < 1)
+            try
+            {
+                await unitOfWork.CompleteAsync();
+            }
+            catch (Exception ex )
             {
                 throw new OperationFailedException("Failed to persist changes.");
             }
@@ -209,10 +213,13 @@ namespace Library_Web_Application_NET.Server.src.service
             });
             unitOfWork.Reservations.UpdateRange(reservations);
             unitOfWork.ResourceInstances.UpdateRange(instances);
-            if (await unitOfWork.CompleteAsync() < instances.Count + reservations.Count)
+            try
+            {
+                await unitOfWork.CompleteAsync();
+            } catch (Exception e)
             {
                 throw new OperationFailedException("Failed to persist changes.");
-            }   
+            }
         }
 
         public void UpdateUserWithDto(User user, AdminUserDto dto)
@@ -236,12 +243,10 @@ namespace Library_Web_Application_NET.Server.src.service
             var userRole = await unitOfWork.Context.UserRoles.FirstOrDefaultAsync(ur => ur.UserId == userId);
             if (userRole != null)
             {
-                userRole.RoleId = role.Id;
+                unitOfWork.Context.UserRoles.Remove(userRole);
+                await unitOfWork.CompleteAsync();
             }
-            else
-            {
-                unitOfWork.Context.UserRoles.Add(new IdentityUserRole<int> { UserId = userId, RoleId = role.Id });
-            }
+            unitOfWork.Context.UserRoles.Add(new IdentityUserRole<int> { UserId = userId, RoleId = role.Id });
         }
     }
 }

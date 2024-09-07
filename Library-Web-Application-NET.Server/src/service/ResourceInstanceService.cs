@@ -127,7 +127,7 @@ namespace Library_Web_Application_NET.Server.src.service
             } 
             else if (borrowedReservations.Count == 1)
             {
-                Reservation reservation = activeReservations.First();
+                Reservation reservation = borrowedReservations.First();
                 instance.Status = InstanceStatus.Awaiting_withdrawal;
                 unitOfWork.ResourceInstances.Update(instance);
                 if (await unitOfWork.CompleteAsync() < 1)
