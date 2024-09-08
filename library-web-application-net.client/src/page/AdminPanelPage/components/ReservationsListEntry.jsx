@@ -75,6 +75,7 @@ function ReservationsListEntry({reservation, updateReservation, borrowResource})
                     name="title"
                     value={updatedReservation.title}
                     onChange={handleChange}
+                    readOnly
                 />
             </td>
             <td>
