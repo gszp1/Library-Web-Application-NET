@@ -18,7 +18,7 @@ function ReservationsList({reservations, updateReservation, borrowResource }) {
                     <th>Extension Count</th>
                     <th>Status</th>
                     <th>Borrow</th>
-                    <th>Cancel</th>
+                    <th>Update</th>
                 </tr>
             </thead>
             <tbody>
